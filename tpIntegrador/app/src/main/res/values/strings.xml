@@ -9,7 +9,6 @@
     <string name="error_message_name">Ingrese el nombre completo</string>
     <string name="error_message_email_not_filled">El mail no puede quedar vacio</string>
     <string name="error_message_email">Ingrese un mail valido</string>
-    <string name="error_message_age">Enter Age</string>
     <string name="error_message_password">Ingrese la contraseña</string>
     <string name="success_message">Registration Successful</string>
     <string name="text_not_member">No tienes una cuenta? Crea una</string>
