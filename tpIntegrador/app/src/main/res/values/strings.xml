@@ -16,4 +16,7 @@
     <string name="error_email_exists">Ya existe el mail</string>
     <string name="error_password_match">La contraseña no coincide</string>
     <string name="error_valid_email_password"> Mail o Contraseña incorrectos</string>
+
+    <string name="checkBoxAdmin">Eres Administrador?</string>
+    <string name="logOut">Cerrar sesion</string>
 </resources>

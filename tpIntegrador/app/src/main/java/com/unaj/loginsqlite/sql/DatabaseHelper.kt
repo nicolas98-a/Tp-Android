@@ -14,23 +14,24 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_USER_NAME + " TEXT," +
             COLUMN_USER_EMAIL + " TEXT," +
-            COLUMN_USER_PASSWORD + " TEXT" + ")")
+            COLUMN_USER_PASSWORD + " TEXT, " +
+            COLUMN_USER_ROL + "INTEGER DEFAULT -1" + ")")
 
     private val DROP_USER_TABLE = "DROP TABLE IF EXISTS $TABLE_USER"
-
-
-
+    private val ALTER_USER_TABLE = "ALTER TABLE "+TABLE_USER + " ADD "+COLUMN_USER_ROL +" INTEGER DEFAULT -1"
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_USER_TABLE)
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Borrar la base si existe
-        db.execSQL(DROP_USER_TABLE)
+       // db.execSQL(DROP_USER_TABLE)
 
+        db.execSQL(ALTER_USER_TABLE)
         // Crear las tablas de vuelta
-        onCreate(db)
+       // onCreate(db)
     }
 
     // Obtener una lista de usuarios
@@ -57,7 +58,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                     id = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt(),
                     name = cursor.getString(cursor.getColumnIndex(COLUMN_USER_NAME)),
                     email = cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)),
-                    password = cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD))
+                    password = cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)),
+                    rol = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ROL)).toInt()
                 )
                 userList.add(user)
             }  while (cursor.moveToNext())
@@ -75,6 +77,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         values.put(COLUMN_USER_NAME, user.name)
         values.put(COLUMN_USER_EMAIL, user.email)
         values.put(COLUMN_USER_PASSWORD, user.password)
+        values.put(COLUMN_USER_ROL, user.rol)
 
         // Insertar fila
         db.insert(TABLE_USER, null, values)
@@ -168,8 +171,35 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return false
 
     }
+
+    @SuppressLint("Range")
+    fun getUserRol(email: String): Int{
+        val columns = arrayOf(COLUMN_USER_ROL)
+        val db = this.readableDatabase
+
+        // criterio de seleccion
+        val selection = "$COLUMN_USER_EMAIL = ?"
+
+        // argumento de seleccion
+        val selectionArgs = arrayOf(email)
+
+        // query: SELECT user_rol FROM user WHERE user_email = 'ejemplo@mail.com';
+        val cursor = db.query(TABLE_USER,
+            columns,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null)
+
+        if (cursor.moveToFirst()){
+           return cursor.getString(cursor.getColumnIndex(COLUMN_USER_ROL)).toInt()
+        }
+        return -1
+    }
+
     companion object {
-        private val DATABASE_VERSION = 1
+        private val DATABASE_VERSION = 4
         private val DATABASE_NAME = "UserManager.db"
 
         // User table name
@@ -179,6 +209,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private val COLUMN_USER_NAME = "user_name"
         private val COLUMN_USER_EMAIL = "user_email"
         private val COLUMN_USER_PASSWORD = "user_password"
+        private val COLUMN_USER_ROL = "user_rol"
 
     }
 }

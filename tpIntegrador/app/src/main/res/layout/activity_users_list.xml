@@ -12,6 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        tools:text="@string/hint_email"/>
+
+    <TextView
+        android:id="@+id/textViewUserRol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        tools:text="Rol"/>
+
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logOut"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp">
+    </Button>
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +30,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var textInputEditTextPassword: TextInputEditText
     private lateinit var textInputEditTextConfirmPassword: TextInputEditText
 
+    private lateinit var appCompatCheckBox: AppCompatCheckBox
     private lateinit var appCompatButtonRegister: AppCompatButton
     private lateinit var appCompatTextViewLoginLink: AppCompatTextView
 
@@ -65,6 +67,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         textInputEditTextPassword = findViewById<View>(R.id.textInputEditTextPassword) as TextInputEditText
         textInputEditTextConfirmPassword = findViewById<View>(R.id.textInputEditTextConfirmPassword) as TextInputEditText
 
+        appCompatCheckBox = findViewById<View>(R.id.appCompatCheckBoxRol) as AppCompatCheckBox
         appCompatButtonRegister = findViewById<View>(R.id.appCompatButtonRegister) as AppCompatButton
 
         appCompatTextViewLoginLink = findViewById<View>(R.id.appCompatTextViewLoginLink) as AppCompatTextView
@@ -109,10 +112,18 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         if (!databaseHelper!!.checkUser(textInputEditTextEmail!!.text.toString().trim())) {
+            val userRol = appCompatCheckBox.isChecked
+            val rol: Int = if (userRol) {
+                0 // Es Administrador
+            } else {
+                1 // Usuario comun
+            }
+
             var user = User(
                 name = textInputEditTextName!!.text.toString().trim(),
                 email = textInputEditTextEmail!!.text.toString().trim(),
-                password = textInputEditTextPassword!!.text.toString().trim()
+                password = textInputEditTextPassword!!.text.toString().trim(),
+                rol = rol
             )
 
             databaseHelper!!.addUser(user)

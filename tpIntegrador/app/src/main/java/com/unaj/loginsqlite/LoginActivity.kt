@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.unaj.loginsqlite.helpers.InputValidation
+import com.unaj.loginsqlite.helpers.UserRolApplication.Companion.prefs
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -48,6 +49,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         // inicializo los objetos que voy a usar
         initObjects()
+
+        checkUserValues()
+
+    }
+
+    private fun checkUserValues(){
+        if (prefs.getUserEmail().isNotEmpty()){
+            startHome()
+        }
     }
 
     private fun initViews() {
@@ -99,10 +109,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         if (databaseHelper!!.checkUser(textInputEditTextEmail!!.text.toString().trim { it <= ' '}, textInputEditTextPassword!!.text.toString().trim { it <= ' '})) {
 
-            val accountsIntent = Intent(activity, UsersListActivity::class.java)
-            accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' '})
-            emptyInputEditText()
-            startActivity(accountsIntent)
+            prefs.saveUserEmail(textInputEditTextEmail!!.text.toString().trim { it <= ' '})
+            startHome()
+
         } else {
             Snackbar.make(nestedScrollView!!, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show()
         }
@@ -112,5 +121,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun emptyInputEditText() {
         textInputEditTextEmail!!.text = null
         textInputEditTextPassword!!.text = null
+    }
+
+    private fun startHome(){
+        val accountsIntent = Intent(activity, UsersListActivity::class.java)
+        // accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' '})
+        emptyInputEditText()
+        startActivity(accountsIntent)
     }
 }
