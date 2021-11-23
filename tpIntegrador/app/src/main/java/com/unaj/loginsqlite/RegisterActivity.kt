@@ -1,8 +1,11 @@
 package com.unaj.loginsqlite
 
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatTextView
@@ -40,9 +43,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-        // oculto el action bar
-        supportActionBar!!.hide()
 
         // inicializo las vistas
         initViews()
@@ -128,9 +128,23 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
             databaseHelper!!.addUser(user)
 
+            // AlertDialog con mensaje exitoso
+            AlertDialog.Builder(activity).apply {
+                setTitle(R.string.save)
+                setMessage(R.string.success_message)
+                setPositiveButton(R.string.ok, DialogInterface.OnClickListener { dialog, which ->
+                    if (user.rol == 0){
+                        startSaveComplexActivity()
+                    }else {
+                        startLogin()
+                    }
+                })
+            }.show()
+
+
             // SnackBar con mensaje de registro exitoso
-            Snackbar.make(nestedScrollView!!, getString(R.string.success_message), Snackbar.LENGTH_LONG).show()
-            emptyInputEditText()
+           // Snackbar.make(nestedScrollView!!, getString(R.string.success_message), Snackbar.LENGTH_LONG).show()
+           // emptyInputEditText()
         } else {
             // Mensaje de error ya existe el usuario
             Snackbar.make(nestedScrollView!!, getString(R.string.error_email_exists), Snackbar.LENGTH_LONG).show()
@@ -143,5 +157,18 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         textInputEditTextEmail!!.text = null
         textInputEditTextPassword!!.text = null
         textInputEditTextConfirmPassword!!.text = null
+    }
+
+    private fun startSaveComplexActivity(){
+        val saveComplexIntent = Intent(activity, RegisterComplexActivity::class.java)
+        emptyInputEditText()
+        startActivity(saveComplexIntent)
+    }
+
+    private fun startLogin(){
+        val loginIntent = Intent(activity, LoginActivity::class.java)
+
+        emptyInputEditText()
+        startActivity(loginIntent)
     }
 }

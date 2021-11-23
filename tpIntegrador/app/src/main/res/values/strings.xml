@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoginSqlite</string>
+    <string name="app_name">Sale fulbito</string>
     <string name="hint_name">Nombre de usuario</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Contraseña</string>
@@ -19,4 +19,19 @@
 
     <string name="checkBoxAdmin">Eres Administrador?</string>
     <string name="logOut">Cerrar sesion</string>
+
+    <string name="hint_Complex_name">Nombre del Complejo Deportivo</string>
+    <string name="hint_phone">Telefono</string>
+    <string name="hint_location">Ubicacion</string>
+    <string name="checkBox_parking">Estacionamiento</string>
+    <string name="checkBox_locker_room">Vestuario</string>
+    <string name="checkBox_grill">Parrilla</string>
+    <string name="save">Guardar</string>
+
+    <string name="error_message_complex_name">Ingrese el nombre del Complejo</string>
+    <string name="error_message_complex_phone">Ingrese el telefono</string>
+    <string name="error_message_complex_location">Ingrese la ubicacion</string>
+    <string name="success_message_save_complex">Se guardo el complejo correctamente</string>
+    <string name="ok">Ok</string>
+
 </resources>

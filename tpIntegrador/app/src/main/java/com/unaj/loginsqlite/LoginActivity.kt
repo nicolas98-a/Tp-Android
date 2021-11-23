@@ -1,10 +1,14 @@
 package com.unaj.loginsqlite
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.text.Html
 import android.view.View
+import androidx.appcompat.widget.AlertDialogLayout
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.NestedScrollView
@@ -37,9 +41,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        // oculto el action bar
-        supportActionBar!!.hide()
 
         // inicializo las vistas
         initViews()
@@ -113,7 +114,18 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             startHome()
 
         } else {
-            Snackbar.make(nestedScrollView!!, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show()
+
+            AlertDialog.Builder(activity).apply {
+                setTitle(R.string.save)
+
+                setMessage(R.string.error_valid_email_password)
+                setPositiveButton("Ok") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            }.show()
+
+
+        //Snackbar.make(nestedScrollView!!, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show()
         }
 
     }
@@ -125,7 +137,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun startHome(){
         val accountsIntent = Intent(activity, UsersListActivity::class.java)
-        // accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' '})
+
         emptyInputEditText()
         startActivity(accountsIntent)
     }
