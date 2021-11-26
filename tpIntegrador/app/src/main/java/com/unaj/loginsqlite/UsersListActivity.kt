@@ -1,17 +1,21 @@
 package com.unaj.loginsqlite
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.google.android.gms.maps.model.LatLng
 import com.unaj.loginsqlite.helpers.UserRolApplication.Companion.prefs
+import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
 class UsersListActivity : AppCompatActivity() {
     private lateinit var textViewUserEmail: TextView
     private lateinit var textViewUserRol: TextView
     private lateinit var btnLogOut: Button
+    private lateinit var btnMap: Button
     private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +26,7 @@ class UsersListActivity : AppCompatActivity() {
         textViewUserEmail = findViewById<View>(R.id.textViewUserEmail) as TextView
         textViewUserRol = findViewById<View>(R.id.textViewUserRol) as TextView
         btnLogOut = findViewById(R.id.btnLogOut)
+        btnMap = findViewById(R.id.mostrarMap)
 
         databaseHelper = DatabaseHelper(this)
 
@@ -31,6 +36,11 @@ class UsersListActivity : AppCompatActivity() {
         btnLogOut.setOnClickListener {
             prefs.wipe()
             onBackPressed()
+        }
+
+        btnMap.setOnClickListener {
+           val mapIntent = Intent(this, GoogleMapActivity::class.java)
+            startActivity(mapIntent)
         }
 
         val emailFromPrefs = prefs.getUserEmail()

@@ -34,4 +34,6 @@
     <string name="success_message_save_complex">Se guardo el complejo correctamente</string>
     <string name="ok">Ok</string>
 
+    <string name="request_map_permission">Para activar la localizacion ve a ajuste y activa los permisos</string>
+
 </resources>
