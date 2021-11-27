@@ -50,31 +50,37 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun createMarker() {
-
-        val complex1 = Complex(1,"Planeta Gol", LatLng(-34.7876912170861, -58.25886175164722), "42558965", 0, 1,1, "admin@gmail.com")
-       /* val complex1 = Complex(1,"Planeta Gol", LatLng(-34.7876912170861, -58.25886175164722), "42558965", 0, 1,1, "admin@gmail.com")
-        val complex2 = Complex(2,"Sport 7", LatLng(-34.776372459147055, -58.25504980974949), "42554587", 1, 0,1, "admin2@gmail.com")
-        val complex3 = Complex(3,"Mundo futbol", LatLng(-34.787644792529264, -58.2558092597688), "42544784", 1, 1,0, "admin3@gmail.com")
+        /*
+        val complex1 = Complex(1,"Planeta Gol", "-34.7876912170861, -58.25886175164722", "42558965", 0, 1,1, "admin@gmail.com")
+        val complex2 = Complex(2,"Sport 7", "-34.776372459147055, -58.25504980974949", "42554587", 1, 0,1, "admin2@gmail.com")
+        val complex3 = Complex(3,"Mundo futbol", "-34.787644792529264, -58.2558092597688", "42544784", 1, 1,0, "admin3@gmail.com")
 
         val complexs = mutableListOf<Complex>()
         complexs.add(complex1)
         complexs.add(complex2)
         complexs.add(complex3)
-                    */
+            */
 
         val complexs = databaseHelper.getAllComplex()
 
         for (complex in complexs) {
-            map.addMarker(MarkerOptions().position(complex.location).title(complex.name))
+
+            var loc = complex.location
+            val delimiter = ","
+            var locParts = loc.split(delimiter)
+
+            map.addMarker(MarkerOptions().position(LatLng(locParts[0].toDouble(), locParts[1].toDouble()))
+                .title(complex.name))
         }
 
 
         map.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(complex1.location, 18f),
+            CameraUpdateFactory.newLatLngZoom(LatLng(-34.7876912170861, -58.25886175164722), 18f),
             4000,
             null
         )
     }
+
 
     private fun isLocationPermissionGranted() = ContextCompat.checkSelfPermission(
         this,

@@ -6,7 +6,7 @@ import java.util.*
 data class Complex (
      val id : Int = -1,
      val name : String,
-     val location : LatLng,
+     val location : String,
      val phone : String,
      val parking : Int,
      val lockerRoom : Int,

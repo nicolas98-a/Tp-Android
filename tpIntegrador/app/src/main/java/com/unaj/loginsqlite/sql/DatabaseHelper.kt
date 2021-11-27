@@ -222,7 +222,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val values = ContentValues()
         values.put(COLUMN_COMPLEX_NAME, complex.name)
-        values.put(COLUMN_COMPLEX_LOCATION, complex.location.toString())
+        values.put(COLUMN_COMPLEX_LOCATION, complex.location)
         values.put(COLUMN_COMPLEX_PHONE, complex.phone)
         values.put(COLUMN_COMPLEX_PARKING, complex.parking)
         values.put(COLUMN_COMPLEX_LOCKER_ROOM, complex.lockerRoom)
@@ -241,7 +241,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val values = ContentValues()
         values.put(COLUMN_COMPLEX_NAME, complex.name)
-        values.put(COLUMN_COMPLEX_LOCATION, complex.location.toString())
+        values.put(COLUMN_COMPLEX_LOCATION, complex.location)
         values.put(COLUMN_COMPLEX_PHONE, complex.phone)
         values.put(COLUMN_COMPLEX_PARKING, complex.parking)
         values.put(COLUMN_COMPLEX_LOCKER_ROOM, complex.lockerRoom)
@@ -287,14 +287,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         if (cursor.moveToFirst()){
             do {
+                /*
                 var loc = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCATION))
                 val delimiter = ","
-                var locParts = loc.split(delimiter)
+                var locParts = loc.split(delimiter)*/
 
                 val complex = Complex(
                     id = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_ID)).toInt(),
                     name = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_NAME)),
-                    location = LatLng(locParts[0].toDouble(), locParts[1].toDouble()),
+                    location = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCATION)),
                     phone = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_PHONE)),
                     parking = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_PARKING)).toInt(),
                     lockerRoom = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCKER_ROOM)).toInt(),
@@ -333,14 +334,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             null)
 
         if (cursor.moveToFirst()) {
+            /*
             var loc = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCATION))
             val delimiter = ","
-            var locParts = loc.split(delimiter)
+            var locParts = loc.split(delimiter)*/
 
             return Complex(
                 id = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_ID)).toInt(),
                 name = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_NAME)),
-                location = LatLng(locParts[0].toDouble(), locParts[1].toDouble()),
+                location = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCATION)),
                 phone = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_PHONE)),
                 parking = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_PARKING)).toInt(),
                 lockerRoom = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCKER_ROOM))

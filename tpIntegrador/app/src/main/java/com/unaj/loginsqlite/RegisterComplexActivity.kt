@@ -1,6 +1,7 @@
 package com.unaj.loginsqlite
 
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -122,13 +123,10 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
 
         val emailFromIntent = intent.getStringExtra("EMAIL")
 
-        var loc = textInputEditTextComplexLocation.toString()
-        val delimiter = ","
-        var locParts = loc.split(delimiter)
 
         val complex = Complex(
             name = textInputEditTextComplexName.text.toString(),
-            location = LatLng(locParts[0].toDouble(), locParts[1].toDouble()),
+            location = textInputEditTextComplexLocation.toString(),
             phone = textInputEditTextComplexPhone.toString(),
             parking = parking,
             lockerRoom = lockerRoom,
@@ -143,7 +141,15 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
             setMessage(R.string.success_message_save_complex)
             setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
                 dialog.dismiss()
+                startLogin()
             })
         }.show()
+    }
+
+    private fun startLogin(){
+        val loginIntent = Intent(activity, LoginActivity::class.java)
+
+
+        startActivity(loginIntent)
     }
 }
