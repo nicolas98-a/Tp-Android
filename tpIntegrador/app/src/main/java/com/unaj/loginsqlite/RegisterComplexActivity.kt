@@ -126,8 +126,8 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
 
         val complex = Complex(
             name = textInputEditTextComplexName.text.toString(),
-            location = textInputEditTextComplexLocation.toString(),
-            phone = textInputEditTextComplexPhone.toString(),
+            location = textInputEditTextComplexLocation.text.toString(),
+            phone = textInputEditTextComplexPhone.text.toString(),
             parking = parking,
             lockerRoom = lockerRoom,
             grill = grill,

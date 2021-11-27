@@ -259,7 +259,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun deleteComplex(complex: Complex) {
         val db = this.writableDatabase
         db.delete(
-            TABLE_COMPLEX, "$COLUMN_USER_ID = ?",
+            TABLE_COMPLEX, "$COLUMN_COMPLEX_ID = ?",
             arrayOf(complex.id.toString()))
 
         db.close()
@@ -287,10 +287,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         if (cursor.moveToFirst()){
             do {
-                /*
-                var loc = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCATION))
-                val delimiter = ","
-                var locParts = loc.split(delimiter)*/
 
                 val complex = Complex(
                     id = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_ID)).toInt(),
@@ -324,7 +320,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         // argumento de seleccion
         val selectionArgs = arrayOf(email)
 
-        // query: SELECT * FROM cpmplex WHERE complex_admin_email = 'ejemplo@mail.com';
+        // query: SELECT * FROM complex WHERE complex_admin_email = 'ejemplo@mail.com';
         val cursor = db.query(TABLE_COMPLEX,
             columns,
             selection,
@@ -334,10 +330,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             null)
 
         if (cursor.moveToFirst()) {
-            /*
-            var loc = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCATION))
-            val delimiter = ","
-            var locParts = loc.split(delimiter)*/
 
             return Complex(
                 id = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_ID)).toInt(),
