@@ -15,10 +15,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.unaj.loginsqlite.model.Complex
+import com.unaj.loginsqlite.sql.DatabaseHelper
 
 class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
+    private lateinit var databaseHelper: DatabaseHelper
 
     companion object {
         const val REQUEST_CODE_LOCATION = 0
@@ -27,6 +29,8 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_map)
+
+        databaseHelper = DatabaseHelper(this)
 
         createMapFragment()
     }
@@ -47,15 +51,18 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun createMarker() {
 
-        val complex1 = Complex(1,"Planeta Gol", LatLng(-34.7876912170861, -58.25886175164722), "42558965", true, false,false)
-        val complex2 = Complex(2,"Sport 7", LatLng(-34.776372459147055, -58.25504980974949), "42554587", true, false,true)
-        val complex3 = Complex(3,"Mundo futbol", LatLng(-34.787644792529264, -58.2558092597688), "42544784", true, true,false)
+        val complex1 = Complex(1,"Planeta Gol", LatLng(-34.7876912170861, -58.25886175164722), "42558965", 0, 1,1, "admin@gmail.com")
+       /* val complex1 = Complex(1,"Planeta Gol", LatLng(-34.7876912170861, -58.25886175164722), "42558965", 0, 1,1, "admin@gmail.com")
+        val complex2 = Complex(2,"Sport 7", LatLng(-34.776372459147055, -58.25504980974949), "42554587", 1, 0,1, "admin2@gmail.com")
+        val complex3 = Complex(3,"Mundo futbol", LatLng(-34.787644792529264, -58.2558092597688), "42544784", 1, 1,0, "admin3@gmail.com")
 
         val complexs = mutableListOf<Complex>()
         complexs.add(complex1)
         complexs.add(complex2)
         complexs.add(complex3)
+                    */
 
+        val complexs = databaseHelper.getAllComplex()
 
         for (complex in complexs) {
             map.addMarker(MarkerOptions().position(complex.location).title(complex.name))

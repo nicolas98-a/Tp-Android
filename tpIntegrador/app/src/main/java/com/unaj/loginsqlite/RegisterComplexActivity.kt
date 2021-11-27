@@ -8,9 +8,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.core.widget.NestedScrollView
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.unaj.loginsqlite.helpers.InputValidation
+import com.unaj.loginsqlite.model.Complex
+import com.unaj.loginsqlite.sql.DatabaseHelper
 
 class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -24,7 +27,7 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var textInputEditTextComplexName: TextInputEditText
     private lateinit var textInputEditTextComplexPhone: TextInputEditText
-    private lateinit var textInputEditTextCpmplexLocation: TextInputEditText
+    private lateinit var textInputEditTextComplexLocation: TextInputEditText
 
     private lateinit var appCompatCheckBoxParking: AppCompatCheckBox
     private lateinit var appCompatCheckBoxLockerRoom: AppCompatCheckBox
@@ -33,6 +36,7 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var appCompatButtonSaveComplex: AppCompatButton
 
     private lateinit var inputValidation: InputValidation
+    private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +61,7 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
 
         textInputEditTextComplexName = findViewById(R.id.textInputEditTextComplexName)
         textInputEditTextComplexPhone = findViewById(R.id.textInputEditTextComplexPhone)
-        textInputEditTextCpmplexLocation = findViewById(R.id.textInputEditTextComplexLocation)
+        textInputEditTextComplexLocation = findViewById(R.id.textInputEditTextComplexLocation)
 
         appCompatCheckBoxParking = findViewById(R.id.appCompatCheckBoxParking)
         appCompatCheckBoxLockerRoom = findViewById(R.id.appCompatCheckBoxLockerRoom)
@@ -74,6 +78,7 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initObjects(){
         inputValidation = InputValidation(activity)
+        databaseHelper = DatabaseHelper(activity)
     }
 
     override fun onClick(v: View?) {
@@ -89,9 +94,49 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
         if (!inputValidation!!.isInputEditTextFilled(textInputEditTextComplexPhone, textInputLayoutComplexPhone, getString(R.string.error_message_complex_phone))) {
             return
         }
-        if (!inputValidation!!.isInputEditTextFilled(textInputEditTextCpmplexLocation, textInputLayoutComplexLocation, getString(R.string.error_message_complex_location))) {
+        if (!inputValidation!!.isInputEditTextFilled(textInputEditTextComplexLocation, textInputLayoutComplexLocation, getString(R.string.error_message_complex_location))) {
             return
         }
+
+
+        val complexParking = appCompatCheckBoxParking.isChecked
+        val parking: Int = if (!complexParking) {
+            0 // false
+        } else {
+            1 // true
+        }
+
+        val complexLockerRoom = appCompatCheckBoxLockerRoom.isChecked
+        val lockerRoom: Int = if (!complexLockerRoom) {
+            0 // false
+        } else {
+            1 // true
+        }
+
+        val complexGrill= appCompatCheckBoxGrill.isChecked
+        val grill: Int = if (!complexGrill) {
+            0 // false
+        } else {
+            1 // true
+        }
+
+        val emailFromIntent = intent.getStringExtra("EMAIL")
+
+        var loc = textInputEditTextComplexLocation.toString()
+        val delimiter = ","
+        var locParts = loc.split(delimiter)
+
+        val complex = Complex(
+            name = textInputEditTextComplexName.text.toString(),
+            location = LatLng(locParts[0].toDouble(), locParts[1].toDouble()),
+            phone = textInputEditTextComplexPhone.toString(),
+            parking = parking,
+            lockerRoom = lockerRoom,
+            grill = grill,
+            adminEmail = emailFromIntent.toString()
+        )
+
+        databaseHelper.addComplex(complex)
 
         AlertDialog.Builder(activity).apply {
             setTitle(R.string.save)

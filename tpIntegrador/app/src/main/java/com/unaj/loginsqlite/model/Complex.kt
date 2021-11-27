@@ -4,12 +4,13 @@ import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 data class Complex (
-     val id : Int,
+     val id : Int = -1,
      val name : String,
      val location : LatLng,
      val phone : String,
-     val parking : Boolean,
-     val lockerRoom : Boolean,
-     val grill : Boolean
+     val parking : Int,
+     val lockerRoom : Int,
+     val grill : Int,
+     val adminEmail: String
          ) {
 }
