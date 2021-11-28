@@ -114,15 +114,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             startHome()
 
         } else {
-
-            AlertDialog.Builder(activity).apply {
+            startHome()
+            /*AlertDialog.Builder(activity).apply {
                 setTitle(R.string.save)
 
                 setMessage(R.string.error_valid_email_password)
                 setPositiveButton("Ok") { dialog, _ ->
                     dialog.dismiss()
                 }
-            }.show()
+            }.show()*/
 
 
         //Snackbar.make(nestedScrollView!!, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show()
@@ -136,8 +136,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun startHome(){
-        val accountsIntent = Intent(activity, UsersListActivity::class.java)
+        /*val accountsIntent = Intent(activity, UsersListActivity::class.java)
 
+        emptyInputEditText()
+        startActivity(accountsIntent)*/
+
+        val accountsIntent = Intent(activity, MenuActivity::class.java)
         emptyInputEditText()
         startActivity(accountsIntent)
     }
