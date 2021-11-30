@@ -47,7 +47,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         //db.execSQL(DROP_COMPLEX_TABLE)
         db.execSQL(CREATE_COMPLEX_TABLE)
-        db.execSQL(ALTER_USER_TABLE)
+//        db.execSQL(ALTER_USER_TABLE)
         // Crear las tablas de vuelta
         //onCreate(db)
     }
