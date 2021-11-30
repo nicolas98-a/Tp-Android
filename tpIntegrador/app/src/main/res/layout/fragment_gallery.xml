@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.gallery.GalleryFragment">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="@string/menu_title_perfil"
+            android:layout_gravity="center"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        
+        <!-- IMAGEN DEL USUARIO -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/logo_perfil" />
+
+        <!-- DATOS DEL USUARIO -->
+        <TextView
+            android:text="Nombre"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Apellido"
+            android:textSize="18sp"
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Email"
+            android:textSize="18sp"
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- BOTONES-->
+        <Button
+            android:id="@+id/update_dates"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawableStart="@drawable/update_ico"
+            android:drawablePadding="15dp"
+            android:padding="15dp"
+            android:text="@string/update_dates"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/update_pass"
+            android:text="@string/update_pass"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/update_pass_ico"
+            android:drawablePadding="15dp"
+            android:padding="15dp"
+            android:textColor="#fff"
+            android:background="@color/colorPrimaryDark"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>

@@ -30,11 +30,12 @@
                     android:id="@+id/textInputEditTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_email"
                     android:background="@color/colorBackground"
+                    android:hint="@string/hint_email"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -47,11 +48,12 @@
                     android:id="@+id/textInputEditTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_password"
                     android:background="@color/colorBackground"
+                    android:hint="@string/hint_password"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
