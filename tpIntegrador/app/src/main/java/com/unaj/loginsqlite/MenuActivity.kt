@@ -1,5 +1,6 @@
 package com.unaj.loginsqlite
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.unaj.loginsqlite.databinding.ActivityMenuBinding
 
 class MenuActivity : AppCompatActivity() {
+
+    private val activity = this@MenuActivity
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMenuBinding
@@ -53,5 +56,9 @@ class MenuActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_menu)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun getActivity(): Activity{
+        return activity
     }
 }

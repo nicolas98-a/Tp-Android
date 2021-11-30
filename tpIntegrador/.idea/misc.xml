@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/activity_google_map.xml" value="0.18478260869565216" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/activity_login.xml" value="0.19293478260869565" />
+        <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/activity_menu.xml" value="0.12083333333333333" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/activity_register.xml" value="0.15670289855072464" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/activity_register_complejo.xml" value="0.19293478260869565" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/activity_users_list.xml" value="0.16576086956521738" />
@@ -12,8 +13,9 @@
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/content_menu.xml" value="0.19927536231884058" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/fragment_contact.xml" value="0.19927536231884058" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/fragment_gallery.xml" value="0.25" />
-        <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/fragment_home.xml" value="0.19927536231884058" />
+        <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/fragment_slideshow.xml" value="0.19927536231884058" />
+        <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/item_complex.xml" value="0.1947463768115942" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/layout/nav_header_menu.xml" value="0.5" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/UNAJ/Aplicaciones moviles/Aplicaciones nativas/Tp nativo/Tp-Android/tpIntegrador/app/src/main/res/menu/menu.xml" value="0.20416666666666666" />
