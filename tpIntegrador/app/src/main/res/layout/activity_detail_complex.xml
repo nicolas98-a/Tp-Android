@@ -7,27 +7,138 @@
     android:orientation="vertical"
     tools:context=".DetailComplex">
 
-    <ImageView
-        android:id="@+id/ivComplex"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ball"
-        android:layout_gravity="center"
-        />
-
-    <TextView
-        android:id="@+id/actDetailComplexName"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        tools:text="Planeta Gol"/>
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/ivComplex"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ball"
+            android:layout_gravity="center"
+
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/actDetailComplexName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:layout_marginLeft="25dp"
+                tools:text="Planeta Gol"/>
+
+            <TextView
+                android:id="@+id/actDetailComplexPhone"
+                android:layout_width="116dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:textAlignment="center"
+                android:layout_marginLeft="25dp"
+                tools:text="42558796" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/actDetailComplexPhone"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/services_complex"
         android:textColor="@color/black"
-        tools:text="42558796"/>
+        android:textSize="20dp"
+        android:textStyle="italic"
+        android:padding="20dp"
+        android:gravity="center">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp">
+
+            <TextView
+                android:id="@+id/estacionamiento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_parking"
+                android:textColor="@color/black"
+                />
+
+            <ImageView
+                android:id="@+id/ivComplexParking"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icons_estacionamiento_60"
+                android:contentDescription="@string/checkBox_parking"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="15dp">
+
+            <TextView
+                android:id="@+id/vestuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_locker_room"
+                android:textColor="@color/black"
+                />
+
+            <ImageView
+                android:id="@+id/ivComplexLockerRoom"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icons_changing_room_60" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="15dp">
+
+            <TextView
+                android:id="@+id/parrilla"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_grill"
+                android:textColor="@color/black"
+                />
+            <ImageView
+                android:id="@+id/ivComplexGrill"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icons_parrilla_60" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 
     <Button
