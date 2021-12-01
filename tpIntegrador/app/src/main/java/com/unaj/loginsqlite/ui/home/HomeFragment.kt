@@ -17,9 +17,9 @@ import com.unaj.loginsqlite.LoginActivity
 import com.unaj.loginsqlite.MenuActivity
 import com.unaj.loginsqlite.R
 import com.unaj.loginsqlite.databinding.FragmentHomeBinding
-import com.unaj.loginsqlite.fragments.ComplexDetailFragment
+
 import com.unaj.loginsqlite.helpers.UserRolApplication
-import com.unaj.loginsqlite.interfaces.IComunicaFragments
+
 import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
@@ -29,7 +29,7 @@ class HomeFragment : Fragment()  {
     private var _binding: FragmentHomeBinding? = null
 
     private lateinit var activity: Activity
-    lateinit var interfaceIComunicaFragments: IComunicaFragments
+
 
 
     // This property is only valid between onCreateView and
@@ -49,10 +49,6 @@ class HomeFragment : Fragment()  {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        /*val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })*/
         databaseHelper = DatabaseHelper(this.requireActivity())
 
         initRecycler()
@@ -89,16 +85,6 @@ class HomeFragment : Fragment()  {
 
     }
 
-
-    /*override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        if (context is Activity) {
-            this.activity = context
-            interfaceIComunicaFragments =  this.activity as IComunicaFragments
-        }
-    }
-*/
 
     private fun startLogin(){
         val loginIntent = Intent(this.context, LoginActivity::class.java)

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.unaj.loginsqlite.DetailComplex
 import com.unaj.loginsqlite.MenuActivity
 import com.unaj.loginsqlite.R
-import com.unaj.loginsqlite.interfaces.IComunicaFragments
+
 import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.ui.home.HomeFragment
 
@@ -51,13 +51,8 @@ class ComplexAdapter (val complexs:List<Complex>): RecyclerView.Adapter<ComplexA
                 detailComplexIntent.putExtra("objectComplex", complex)
                 startActivity( view.context,detailComplexIntent, null)
 
-
-               // MenuActivity().enviarComplex(complex)
             }
         }
     }
 
-    private fun startDetailComplexActivity(complex: Complex) {
-
-    }
 }
