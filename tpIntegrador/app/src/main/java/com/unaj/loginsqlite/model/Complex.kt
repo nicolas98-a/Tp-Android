@@ -1,9 +1,10 @@
 package com.unaj.loginsqlite.model
 
 import com.google.android.gms.maps.model.LatLng
+import java.io.Serializable
 import java.util.*
 
-data class Complex (
+data class Complex  (
      val id : Int = -1,
      val name : String,
      val location : String,
@@ -12,5 +13,5 @@ data class Complex (
      val lockerRoom : Int,
      val grill : Int,
      val adminEmail: String
-         ) {
+         ) : Serializable {
 }

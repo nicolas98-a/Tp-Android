@@ -114,15 +114,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             startHome()
 
         } else {
-            startHome()
-            /*AlertDialog.Builder(activity).apply {
+
+            AlertDialog.Builder(activity).apply {
                 setTitle(R.string.save)
 
                 setMessage(R.string.error_valid_email_password)
                 setPositiveButton("Ok") { dialog, _ ->
                     dialog.dismiss()
+
                 }
-            }.show()*/
+            }.show()
 
 
         //Snackbar.make(nestedScrollView!!, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show()

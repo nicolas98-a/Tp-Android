@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailComplex">
+
+    <ImageView
+        android:id="@+id/ivComplex"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ball"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/actDetailComplexName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:text="Planeta Gol"/>
+
+    <TextView
+        android:id="@+id/actDetailComplexPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:text="42558796"/>
+
+
+    <Button
+        android:id="@+id/viewMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mapa"
+        android:layout_gravity="center">
+    </Button>
+
+
+</LinearLayout>

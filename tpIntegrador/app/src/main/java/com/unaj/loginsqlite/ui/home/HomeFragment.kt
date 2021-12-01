@@ -1,5 +1,8 @@
 package com.unaj.loginsqlite.ui.home
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +13,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unaj.loginsqlite.Adapters.ComplexAdapter
+import com.unaj.loginsqlite.LoginActivity
 import com.unaj.loginsqlite.MenuActivity
 import com.unaj.loginsqlite.R
 import com.unaj.loginsqlite.databinding.FragmentHomeBinding
+import com.unaj.loginsqlite.fragments.ComplexDetailFragment
+import com.unaj.loginsqlite.helpers.UserRolApplication
+import com.unaj.loginsqlite.interfaces.IComunicaFragments
 import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment()  {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
+
+    private lateinit var activity: Activity
+    lateinit var interfaceIComunicaFragments: IComunicaFragments
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -46,6 +57,13 @@ class HomeFragment : Fragment() {
 
         initRecycler()
 
+        val btnLogOut = binding.logOut
+        btnLogOut.setOnClickListener {
+            UserRolApplication.prefs.wipe()
+            startLogin()
+
+        }
+
         return root
     }
 
@@ -70,4 +88,22 @@ class HomeFragment : Fragment() {
         binding.rvComplex.adapter = adapter
 
     }
+
+
+    /*override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is Activity) {
+            this.activity = context
+            interfaceIComunicaFragments =  this.activity as IComunicaFragments
+        }
+    }
+*/
+
+    private fun startLogin(){
+        val loginIntent = Intent(this.context, LoginActivity::class.java)
+
+        startActivity(loginIntent)
+    }
+
 }

@@ -43,13 +43,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Borrar la base si existe
-        //db.execSQL(DROP_USER_TABLE)
+        db.execSQL(DROP_USER_TABLE)
 
-        //db.execSQL(DROP_COMPLEX_TABLE)
-        db.execSQL(CREATE_COMPLEX_TABLE)
-//        db.execSQL(ALTER_USER_TABLE)
+        db.execSQL(DROP_COMPLEX_TABLE)
+        //db.execSQL(CREATE_COMPLEX_TABLE)
+        //db.execSQL(ALTER_USER_TABLE)
         // Crear las tablas de vuelta
-        //onCreate(db)
+        onCreate(db)
     }
 
     // Obtener una lista de usuarios

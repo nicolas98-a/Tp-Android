@@ -1,6 +1,7 @@
 package com.unaj.loginsqlite
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -13,10 +14,15 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.unaj.loginsqlite.databinding.ActivityMenuBinding
+import com.unaj.loginsqlite.fragments.ComplexDetailFragment
+import com.unaj.loginsqlite.interfaces.IComunicaFragments
+import com.unaj.loginsqlite.model.Complex
 
-class MenuActivity : AppCompatActivity() {
+class MenuActivity : AppCompatActivity(), IComunicaFragments {
 
     private val activity = this@MenuActivity
+
+    private lateinit var complexDetailFragment: ComplexDetailFragment
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMenuBinding
@@ -61,4 +67,18 @@ class MenuActivity : AppCompatActivity() {
     fun getActivity(): Activity{
         return activity
     }
+
+    override fun enviarComplex(complex: Complex) {
+        complexDetailFragment = ComplexDetailFragment()
+        val bundleEnvio:Bundle = Bundle()
+        bundleEnvio.putSerializable("objeto", complex)
+        complexDetailFragment.arguments = bundleEnvio
+
+        // cargo el fragment detalle
+        val getSupportFragment = supportFragmentManager
+        getSupportFragment.beginTransaction().replace(R.id.fragment_home, complexDetailFragment)
+            .addToBackStack(null).commit()
+    }
+
+
 }
