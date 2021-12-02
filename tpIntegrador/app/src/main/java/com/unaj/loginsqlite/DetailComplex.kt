@@ -52,6 +52,7 @@ class DetailComplex : AppCompatActivity() {
 
         btnViewMap.setOnClickListener {
             val mapIntent = Intent(this, GoogleMapActivity::class.java)
+            mapIntent.putExtra("LOCATION", complex.location)
             startActivity(mapIntent)
         }
     }

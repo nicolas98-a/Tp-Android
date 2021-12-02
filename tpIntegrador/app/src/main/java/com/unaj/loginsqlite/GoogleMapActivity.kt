@@ -13,14 +13,17 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
-class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
+class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
+                            GoogleMap.OnInfoWindowClickListener{
 
     private lateinit var map: GoogleMap
     private lateinit var databaseHelper: DatabaseHelper
+    private lateinit var locationFromIntent: String
 
     companion object {
         const val REQUEST_CODE_LOCATION = 0
@@ -31,6 +34,8 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_google_map)
 
         databaseHelper = DatabaseHelper(this)
+
+        locationFromIntent = intent.getStringExtra("LOCATION") as String
 
         createMapFragment()
     }
@@ -45,7 +50,10 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         createMarker()
+        map.setOnMarkerClickListener(this)
+        map.setOnInfoWindowClickListener(this)
         enableMyLocation()
+        zoomComplexFromIntent(this.locationFromIntent)
 
     }
 
@@ -72,12 +80,18 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
             var locParts = loc.split(delimiter)
 
             map.addMarker(MarkerOptions().position(LatLng(locParts[0].toDouble(), locParts[1].toDouble()))
-                .title(complex.name))
+                .title(complex.name).snippet(getString(R.string.hint_phone) + ": " + complex.phone))
         }
 
+    }
+
+    private fun zoomComplexFromIntent(location: String) {
+        var loc = location
+        val delimiter = ","
+        var locParts = loc.split(delimiter)
 
         map.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(LatLng(-34.7876912170861,-58.25886175164722), 18f),
+            CameraUpdateFactory.newLatLngZoom(LatLng(locParts[0].toDouble(), locParts[1].toDouble()), 18f),
             4000,
             null
         )
@@ -135,5 +149,16 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback {
             map.isMyLocationEnabled = false
             Toast.makeText(this, getString(R.string.request_map_permission), Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onMarkerClick(p0: Marker): Boolean {
+        Toast.makeText(this, "Click en el marker", Toast.LENGTH_SHORT).show()
+
+        return false
+    }
+
+    override fun onInfoWindowClick(p0: Marker) {
+        Toast.makeText(this, "Click en ${p0.title}", Toast.LENGTH_SHORT).show()
+
     }
 }
