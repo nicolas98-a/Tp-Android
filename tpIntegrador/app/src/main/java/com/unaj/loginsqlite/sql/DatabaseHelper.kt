@@ -346,6 +346,46 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return null
     }
 
+    @SuppressLint("Range")
+    fun getComplexByName(name: String): Complex? {
+        val db = this.readableDatabase
+
+        val columns = arrayOf(COLUMN_COMPLEX_ID, COLUMN_COMPLEX_NAME, COLUMN_COMPLEX_LOCATION,
+            COLUMN_COMPLEX_PHONE, COLUMN_COMPLEX_PARKING, COLUMN_COMPLEX_LOCKER_ROOM,
+            COLUMN_COMPLEX_GRILL, COLUMN_COMPLEX_ADMIN_EMAIL)
+
+        // criterio de seleccion
+        val selection = "$COLUMN_COMPLEX_NAME = ?"
+
+        // argumento de seleccion
+        val selectionArgs = arrayOf(name)
+
+        // query: SELECT * FROM complex WHERE complex_name = 'name';
+        val cursor = db.query(TABLE_COMPLEX,
+            columns,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null)
+
+        if (cursor.moveToFirst()) {
+
+            return Complex(
+                id = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_ID)).toInt(),
+                name = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_NAME)),
+                location = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCATION)),
+                phone = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_PHONE)),
+                parking = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_PARKING)).toInt(),
+                lockerRoom = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_LOCKER_ROOM))
+                    .toInt(),
+                grill = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_GRILL)).toInt(),
+                adminEmail = cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEX_ADMIN_EMAIL))
+            )
+        }
+        return null
+    }
+
     companion object {
         private val DATABASE_VERSION = 6
         private val DATABASE_NAME = "UserManager.db"

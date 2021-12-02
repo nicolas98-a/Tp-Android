@@ -29,12 +29,15 @@ class DetailComplex : AppCompatActivity() {
         detailComplexIvLockerRoom = findViewById(R.id.ivComplexLockerRoom)
         detailComplexIvGrill = findViewById(R.id.ivComplexGrill)
 
-
-
         btnViewMap = findViewById(R.id.viewMap)
 
-        val complex = intent.getSerializableExtra("objectComplex") as Complex
+        val complexFromIntent = intent.getSerializableExtra("objectComplex") as Complex
 
+        renderComplexDetail(complexFromIntent)
+
+    }
+
+    private fun renderComplexDetail(complex: Complex) {
         detailComplexName.text = complex.name
         detailComplexPhone.text = complex.phone
 
@@ -47,8 +50,6 @@ class DetailComplex : AppCompatActivity() {
         if (complex.grill == 0){
             detailComplexIvGrill.setImageResource(R.drawable.icons_no_parrilla_50)
         }
-
-
 
         btnViewMap.setOnClickListener {
             val mapIntent = Intent(this, GoogleMapActivity::class.java)

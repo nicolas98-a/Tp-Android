@@ -2,6 +2,7 @@ package com.unaj.loginsqlite
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -159,6 +160,12 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
 
     override fun onInfoWindowClick(p0: Marker) {
         Toast.makeText(this, "Click en ${p0.title}", Toast.LENGTH_SHORT).show()
+
+        val complex = databaseHelper.getComplexByName(p0.title!!)
+
+        val detailComplexIntent = Intent(this, DetailComplex::class.java)
+        detailComplexIntent.putExtra("objectComplex", complex)
+        startActivity(detailComplexIntent)
 
     }
 }
