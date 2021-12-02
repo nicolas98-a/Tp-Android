@@ -19,8 +19,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
-class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
-                            GoogleMap.OnInfoWindowClickListener{
+class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback,
+    GoogleMap.OnInfoWindowClickListener{
 
     private lateinit var map: GoogleMap
     private lateinit var databaseHelper: DatabaseHelper
@@ -51,7 +51,6 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         createMarker()
-        map.setOnMarkerClickListener(this)
         map.setOnInfoWindowClickListener(this)
         enableMyLocation()
         zoomComplexFromIntent(this.locationFromIntent)
@@ -152,11 +151,6 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
         }
     }
 
-    override fun onMarkerClick(p0: Marker): Boolean {
-        Toast.makeText(this, "Click en el marker", Toast.LENGTH_SHORT).show()
-
-        return false
-    }
 
     override fun onInfoWindowClick(p0: Marker) {
         Toast.makeText(this, "Click en ${p0.title}", Toast.LENGTH_SHORT).show()
