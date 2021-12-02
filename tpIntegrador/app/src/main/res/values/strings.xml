@@ -11,13 +11,13 @@
     <string name="error_message_email">Ingrese un mail valido</string>
     <string name="error_message_password">Ingrese la contraseña</string>
     <string name="success_message">Registration Successful</string>
-    <string name="text_not_member">No tienes una cuenta? Crea una</string>
-    <string name="text_already_member">Estas registrado? Inicia sesion</string>
+    <string name="text_not_member">¿No tienes una cuenta? Crea una</string>
+    <string name="text_already_member">¿Estas registrado? Inicia sesion</string>
     <string name="error_email_exists">Ya existe el mail</string>
     <string name="error_password_match">La contraseña no coincide</string>
     <string name="error_valid_email_password"> Mail o Contraseña incorrectos</string>
 
-    <string name="checkBoxAdmin">Eres Administrador?</string>
+    <string name="checkBoxAdmin">¿Eres Administrador?</string>
     <string name="logOut">Cerrar sesion</string>
 
     <string name="hint_Complex_name">Nombre del Complejo Deportivo</string>
@@ -41,7 +41,7 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Idioma</string>
 
     <!-- MENU DE OPCIONES -->
     <string name="menu_home">Inicio</string>
