@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.unaj.loginsqlite.model.Complex
+import com.unaj.loginsqlite.model.Field
 
 class DetailComplex : AppCompatActivity() {
 
@@ -22,6 +23,10 @@ class DetailComplex : AppCompatActivity() {
     private lateinit var detailComplexIvGrill: ImageView
     private lateinit var editTextDate: EditText
     private lateinit var editTextTime: EditText
+    private lateinit var textViewIllumination: TextView
+    private lateinit var textViewCovered: TextView
+    private lateinit var textViewSynthetic: TextView
+    private lateinit var textViewFieldPrice: TextView
 
     private lateinit var btnViewMap: Button
 
@@ -30,6 +35,12 @@ class DetailComplex : AppCompatActivity() {
         setContentView(R.layout.activity_detail_complex)
 
         initViews()
+
+        //
+
+        val field = Field(1, "Planeta Gol", 1500, 1, 0, 1)
+        renderField(field)
+        //
 
         val complexFromIntent = intent.getSerializableExtra("objectComplex") as Complex
 
@@ -85,6 +96,24 @@ class DetailComplex : AppCompatActivity() {
         }
     }
 
+    private fun renderField(field: Field) {
+        textViewFieldPrice.text = "$" + field.price.toString()
+
+        if (field.illumination == 0) {
+            textViewIllumination.setTextColor(resources.getColor(R.color.red))
+            textViewIllumination.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icons_eliminar_48), null, null,null)
+        }
+        if (field.covered == 0) {
+            textViewCovered.setTextColor(resources.getColor(R.color.red))
+            textViewCovered.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icons_eliminar_48), null, null,null)
+        }
+        if (field.synthetic == 0) {
+            textViewSynthetic.setTextColor(resources.getColor(R.color.red))
+            textViewSynthetic.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icons_eliminar_48),null,null,null)
+
+        }
+    }
+
     private fun initViews() {
         detailComplexName = findViewById(R.id.actDetailComplexName)
         detailComplexPhone = findViewById(R.id.actDetailComplexPhone)
@@ -93,6 +122,10 @@ class DetailComplex : AppCompatActivity() {
         detailComplexIvGrill = findViewById(R.id.ivComplexGrill)
         editTextDate = findViewById(R.id.etDate)
         editTextTime = findViewById(R.id.etTime)
+        textViewIllumination = findViewById(R.id.textViewIluminacion)
+        textViewCovered = findViewById(R.id.textViewCovered)
+        textViewSynthetic = findViewById(R.id.textViewSynthetic)
+        textViewFieldPrice = findViewById(R.id.fieldPrice)
 
         btnViewMap = findViewById(R.id.viewMap)
     }

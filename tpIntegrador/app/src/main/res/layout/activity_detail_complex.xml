@@ -39,12 +39,11 @@
 
             <TextView
                 android:id="@+id/actDetailComplexPhone"
-                android:layout_width="116dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textStyle="italic"
-                android:textAlignment="center"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="50dp"
                 tools:text="42558796" />
 
             <Button
@@ -167,6 +166,7 @@
             android:layout_gravity="center">
 
             <TextView
+                android:id="@+id/textViewIluminacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/iluminacion"
@@ -178,6 +178,7 @@
                 android:drawableLeft="@drawable/icons_comprobado_48" />
 
             <TextView
+                android:id="@+id/textViewCovered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/techo"
@@ -189,15 +190,16 @@
                 android:drawableLeft="@drawable/icons_comprobado_48" />
 
             <TextView
+                android:id="@+id/textViewSynthetic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sintetico"
-                android:textColor="@color/red"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:drawableLeft="@drawable/icons_eliminar_48" />
+                android:drawableLeft="@drawable/icons_comprobado_48" />
         </LinearLayout>
 
         <LinearLayout
@@ -217,7 +219,7 @@
                 android:layout_margin="10dp" />
 
             <TextView
-                android:id="@+id/pitchPrice"
+                android:id="@+id/fieldPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
