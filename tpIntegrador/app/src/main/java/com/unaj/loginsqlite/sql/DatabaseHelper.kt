@@ -1,12 +1,18 @@
 package com.unaj.loginsqlite.sql
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
+import android.content.DialogInterface
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.maps.model.LatLng
+import com.unaj.loginsqlite.R
 import com.unaj.loginsqlite.model.Complex
+import com.unaj.loginsqlite.model.Field
+import com.unaj.loginsqlite.model.Reservation
 import com.unaj.loginsqlite.model.User
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION ) {
@@ -17,7 +23,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             COLUMN_USER_NAME + " TEXT," +
             COLUMN_USER_EMAIL + " TEXT," +
             COLUMN_USER_PASSWORD + " TEXT, " +
-            COLUMN_USER_ROL + "INTEGER DEFAULT -1" + ")")
+            COLUMN_USER_ROL + " INTEGER DEFAULT -1" + ")")
 
     private val DROP_USER_TABLE = "DROP TABLE IF EXISTS $TABLE_USER"
     private val ALTER_USER_TABLE = "ALTER TABLE "+TABLE_USER + " ADD "+COLUMN_USER_ROL +" INTEGER DEFAULT -1"
@@ -35,9 +41,30 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     private val DROP_COMPLEX_TABLE = "DROP TABLE IF EXISTS $TABLE_COMPLEX"
 
+    private val CREATE_FIELD_TABLE = ("CREATE TABLE IF NOT EXISTS " + TABLE_FIELD + "(" +
+            COLUMN_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_FIELD_COMPLEX_NAME + " TEXT," +
+            COLUMN_FIELD_PRICE + " INTEGER," +
+            COLUMN_FIELD_ILLUMINATION + " INTEGER," +
+            COLUMN_FIELD_COVERED + " INTEGER," +
+            COLUMN_FIELD_SYNTHETIC + " INTEGER" + ")")
+
+    private val DROP_FIELD_TABLE = "DROP TABLE IF EXISTS $TABLE_FIELD"
+
+    private val CREATE_RESERVATION_TABLE = ("CREATE TABLE IF NOT EXISTS " + TABLE_RESERVATION + "(" +
+            COLUMN_RESERVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_RESERVATION_USER_EMAIL + " TEXT," +
+            COLUMN_RESERVATION_COMPLEX_NAME + " TEXT," +
+            COLUMN_RESERVATION_DATE + " TEXT," +
+            COLUMN_RESERVATION_TIME + " TEXT" + ")")
+
+    private val DROP_RESERVATION_TABLE = "DROP TABLE IF EXISTS $TABLE_RESERVATION"
+
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_USER_TABLE)
         db.execSQL(CREATE_COMPLEX_TABLE)
+        db.execSQL(CREATE_FIELD_TABLE)
+        db.execSQL(CREATE_RESERVATION_TABLE)
 
     }
 
@@ -46,8 +73,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(DROP_USER_TABLE)
 
         db.execSQL(DROP_COMPLEX_TABLE)
+        db.execSQL(DROP_FIELD_TABLE)
+        db.execSQL(DROP_RESERVATION_TABLE)
         //db.execSQL(CREATE_COMPLEX_TABLE)
         //db.execSQL(ALTER_USER_TABLE)
+
         // Crear las tablas de vuelta
         onCreate(db)
     }
@@ -386,9 +416,79 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return null
     }
 
+    // Agregar una cancha
+    fun addField(field: Field) {
+        val db = this.writableDatabase
+
+        val values = ContentValues()
+        values.put(COLUMN_FIELD_COMPLEX_NAME, field.complexName)
+        values.put(COLUMN_FIELD_PRICE, field.price)
+        values.put(COLUMN_FIELD_ILLUMINATION, field.illumination)
+        values.put(COLUMN_FIELD_COVERED, field.covered)
+        values.put(COLUMN_FIELD_SYNTHETIC, field.synthetic)
+
+        // Insertar fila
+        db.insert(TABLE_FIELD, null, values)
+        db.close()
+    }
+
+    // Agregar una reserva
+    fun addReservation(reservation: Reservation): Int {
+        val db = this.writableDatabase
+
+        val values = ContentValues()
+        values.put(COLUMN_RESERVATION_USER_EMAIL, reservation.userEmail)
+        values.put(COLUMN_RESERVATION_COMPLEX_NAME, reservation.complexName)
+        values.put(COLUMN_RESERVATION_DATE, reservation.date)
+        values.put(COLUMN_RESERVATION_TIME, reservation.time)
+
+        // Insertar fila
+        val res = db.insert(TABLE_RESERVATION, null, values)
+        db.close()
+
+        return res.toInt()
+    }
+
+    @SuppressLint("Range")
+    fun getFieldByComplexName(name: String): Field? {
+        val db = this.readableDatabase
+
+        val columns = arrayOf(COLUMN_FIELD_ID, COLUMN_FIELD_COMPLEX_NAME,
+            COLUMN_FIELD_PRICE, COLUMN_FIELD_ILLUMINATION, COLUMN_FIELD_COVERED,
+            COLUMN_FIELD_SYNTHETIC)
+
+        // criterio de seleccion
+        val selection = "$COLUMN_FIELD_COMPLEX_NAME = ?"
+
+        // argumento de seleccion
+        val selectionArgs = arrayOf(name)
+
+        // query: SELECT * FROM field WHERE field_complex_name = 'name';
+        val cursor = db.query(TABLE_FIELD,
+            columns,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null)
+
+        if (cursor.moveToFirst()) {
+
+            return Field(
+                id = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD_ID)).toInt(),
+                complexName = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD_COMPLEX_NAME)),
+                price = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD_PRICE)).toInt(),
+                illumination = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD_ILLUMINATION)).toInt(),
+                covered = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD_COVERED)).toInt(),
+                synthetic = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD_SYNTHETIC)).toInt()
+            )
+        }
+        return null
+    }
+
     companion object {
-        private val DATABASE_VERSION = 6
-        private val DATABASE_NAME = "UserManager.db"
+        private val DATABASE_VERSION = 1
+        private val DATABASE_NAME = "FootballManager.db"
 
         // User table name
         private val TABLE_USER = "user"
@@ -410,6 +510,25 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private val COLUMN_COMPLEX_LOCKER_ROOM = "complex_locker_room"
         private val COLUMN_COMPLEX_GRILL = "complex_grill"
         private val COLUMN_COMPLEX_ADMIN_EMAIL = "complex_admin_email"
+
+        // Field Table name
+        private val TABLE_FIELD = "field"
+        // Fiel Table columns name
+        private val COLUMN_FIELD_ID = "field_id"
+        private val COLUMN_FIELD_COMPLEX_NAME = "field_complex_name"
+        private val COLUMN_FIELD_PRICE = "field_price"
+        private val COLUMN_FIELD_ILLUMINATION = "field_illumination"
+        private val COLUMN_FIELD_COVERED = "field_covered"
+        private val COLUMN_FIELD_SYNTHETIC = "field_synthetic"
+
+        // Reservation Table name
+        private val TABLE_RESERVATION = "reservation"
+        // Reservation table columns name
+        private val COLUMN_RESERVATION_ID = "reservation_id"
+        private val COLUMN_RESERVATION_USER_EMAIL = "user_email"
+        private val COLUMN_RESERVATION_COMPLEX_NAME = "reservation_complex_name"
+        private val COLUMN_RESERVATION_DATE = "reservation_date"
+        private val COLUMN_RESERVATION_TIME = "reservation_time"
     }
 }
 

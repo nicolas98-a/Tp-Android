@@ -33,6 +33,10 @@
     <string name="error_message_complex_phone">Enter the phone</string>
     <string name="error_message_complex_location">Enter location</string>
     <string name="success_message_save_complex">The complex was saved successfully</string>
+    <string name="error_message_date">Select a date</string>
+    <string name="error_message_time">Select a time</string>
+    <string name="error_database">Error writing to database</string>
+    <string name="success_message_save_reservation">Your reservation has been registered</string>
     <string name="ok">Ok</string>
 
     <string name="request_map_permission">To activate the location go to setting and activate the permissions</string>

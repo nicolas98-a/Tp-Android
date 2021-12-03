@@ -17,6 +17,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.unaj.loginsqlite.databinding.ActivityMenuBinding
+import com.unaj.loginsqlite.model.Complex
+import com.unaj.loginsqlite.model.Field
+import com.unaj.loginsqlite.sql.DatabaseHelper
 
 class MenuActivity : AppCompatActivity() {
 
@@ -24,6 +27,7 @@ class MenuActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMenuBinding
+    private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +50,10 @@ class MenuActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+
+        databaseHelper = DatabaseHelper(this)
+        //cargarCanchas()
+        //cargarComplejos()
 
     }
 
@@ -82,5 +90,26 @@ class MenuActivity : AppCompatActivity() {
         intentIdiom.setClassName("com.android.settings", "com.android.settings.LanguageSettings")
         startActivity(intentIdiom)
     }
+
+    private fun cargarComplejos() {
+
+        val complex1 = Complex(1,"Planeta Gol", "-34.7876912170861, -58.25886175164722", "42558965", 0, 1,1, "admin@gmail.com")
+        val complex2 = Complex(2,"Sport 7", "-34.776372459147055, -58.25504980974949", "42554587", 1, 0,1, "admin2@gmail.com")
+        val complex3 = Complex(3,"Mundo futbol", "-34.787644792529264, -58.2558092597688", "42544784", 1, 1,0, "admin3@gmail.com")
+
+        databaseHelper.addComplex(complex1)
+        databaseHelper.addComplex(complex2)
+        databaseHelper.addComplex(complex3)
+    }
+    private fun cargarCanchas() {
+        val field1 = Field(1, "Planeta Gol", 1500, 1, 0, 1)
+        val field2 = Field(1, "Sport 7", 1200, 1, 1, 1)
+        val field3 = Field(1, "Mundo futbol", 1300, 0, 0, 1)
+
+        databaseHelper.addField(field1)
+        databaseHelper.addField(field2)
+        databaseHelper.addField(field3)
+    }
+
 
 }

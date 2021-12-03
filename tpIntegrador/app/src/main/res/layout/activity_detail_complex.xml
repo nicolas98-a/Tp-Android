@@ -231,26 +231,44 @@
 
     </LinearLayout>
 
-
-    <EditText
-        android:id="@+id/etDate"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:clickable="false"
-        android:focusable="false"
-        android:hint="@string/date_reservation"
-        android:textColorHint="@color/black"/>
+        app:boxBackgroundColor="@color/white">
 
-    <EditText
-        android:id="@+id/etTime"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:hint="@string/date_reservation"
+            android:textColorHint="@color/black"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:clickable="false"
-        android:focusable="false"
-        android:hint="@string/time_reservation"
-        android:textColorHint="@color/black"/>
+        app:boxBackgroundColor="@color/white">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:hint="@string/time_reservation"
+            android:textColorHint="@color/black"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/btnReservation"

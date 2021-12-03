@@ -32,6 +32,10 @@
     <string name="error_message_complex_phone">Ingrese el telefono</string>
     <string name="error_message_complex_location">Ingrese la ubicacion</string>
     <string name="success_message_save_complex">Se guardo el complejo correctamente</string>
+    <string name="success_message_save_reservation">Se ha registrado su reserva</string>
+    <string name="error_message_date">Seleccione una fecha</string>
+    <string name="error_message_time">Seleccione un horario</string>
+    <string name="error_database">Error al escribir en la base de datos</string>
     <string name="ok">Ok</string>
 
     <string name="request_map_permission">Para activar la localizacion ve a ajuste y activa los permisos</string>
@@ -66,5 +70,6 @@
     <string name="techo">Techo</string>
     <string name="sintetico">Sintetico</string>
     <string name="price">Precio:</string>
+
 
 </resources>

@@ -1,5 +1,6 @@
 package com.unaj.loginsqlite
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,8 +12,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import com.unaj.loginsqlite.helpers.InputValidation
+import com.unaj.loginsqlite.helpers.UserRolApplication.Companion.prefs
 import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.model.Field
+import com.unaj.loginsqlite.model.Reservation
+import com.unaj.loginsqlite.sql.DatabaseHelper
 
 class DetailComplex : AppCompatActivity() {
 
@@ -21,34 +29,77 @@ class DetailComplex : AppCompatActivity() {
     private lateinit var detailComplexIvParking: ImageView
     private lateinit var detailComplexIvLockerRoom: ImageView
     private lateinit var detailComplexIvGrill: ImageView
-    private lateinit var editTextDate: EditText
-    private lateinit var editTextTime: EditText
+    private lateinit var editTextDate: TextInputEditText
+    private lateinit var editTextTime: TextInputEditText
     private lateinit var textViewIllumination: TextView
     private lateinit var textViewCovered: TextView
     private lateinit var textViewSynthetic: TextView
     private lateinit var textViewFieldPrice: TextView
+    private lateinit var textInputLayoutDate: TextInputLayout
+    private lateinit var textInputLayoutTime: TextInputLayout
+
+    private lateinit var databaseHelper: DatabaseHelper
+    private lateinit var inputValidation: InputValidation
 
     private lateinit var btnViewMap: Button
+    private lateinit var btnReservation: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_complex)
 
         initViews()
-
-        //
-
-        val field = Field(1, "Planeta Gol", 1500, 1, 0, 1)
-        renderField(field)
-        //
+        databaseHelper = DatabaseHelper(this)
+        inputValidation = InputValidation(this)
 
         val complexFromIntent = intent.getSerializableExtra("objectComplex") as Complex
+        val userEmailFromPrefs = prefs.getUserEmail()
 
         renderComplexDetail(complexFromIntent)
+        val field = databaseHelper.getFieldByComplexName(complexFromIntent.name)
+        renderField(field!!)
 
         editTextDate.setOnClickListener { showDatePickerDialog() }
         editTextTime.setOnClickListener { showTimePickerDialog() }
+        btnReservation.setOnClickListener { saveReservation(complexFromIntent.name, userEmailFromPrefs) }
 
+    }
+
+    private fun saveReservation(complexName: String, userEmail: String) {
+
+        if (!inputValidation!!.isInputEditTextFilled(editTextDate, textInputLayoutDate, getString(R.string.error_message_date))){
+            return
+        }
+        if (!inputValidation!!.isInputEditTextFilled(editTextTime, textInputLayoutTime, getString(R.string.error_message_time))){
+            return
+        }
+
+        val reservation = Reservation(
+            userEmail = userEmail,
+            complexName = complexName,
+            date = editTextDate.text.toString(),
+            time = editTextTime.text.toString()
+        )
+        val rta = databaseHelper.addReservation(reservation)
+        if (rta == -1) {
+            AlertDialog.Builder(this).apply {
+                setTitle(R.string.save)
+                setMessage(R.string.error_database)
+                setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
+                    dialog.dismiss()
+                    emptyInputEditText()
+                })
+            }.show()
+        } else {
+            AlertDialog.Builder(this).apply {
+                setTitle(R.string.save)
+                setMessage(R.string.success_message_save_reservation)
+                setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
+                    dialog.dismiss()
+                    emptyInputEditText()
+                })
+            }.show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,8 +113,6 @@ class DetailComplex : AppCompatActivity() {
             menuItem.title = spannable
 
         }
-
-
         return true
     }
 
@@ -126,8 +175,11 @@ class DetailComplex : AppCompatActivity() {
         textViewCovered = findViewById(R.id.textViewCovered)
         textViewSynthetic = findViewById(R.id.textViewSynthetic)
         textViewFieldPrice = findViewById(R.id.fieldPrice)
+        textInputLayoutDate = findViewById(R.id.textInputLayoutDate)
+        textInputLayoutTime = findViewById(R.id.textInputLayoutTime)
 
         btnViewMap = findViewById(R.id.viewMap)
+        btnReservation = findViewById(R.id.btnReservation)
     }
 
     private fun showDatePickerDialog() {
@@ -158,5 +210,10 @@ class DetailComplex : AppCompatActivity() {
         val intentIdiom = Intent(Intent.ACTION_MAIN)
         intentIdiom.setClassName("com.android.settings", "com.android.settings.LanguageSettings")
         startActivity(intentIdiom)
+    }
+
+    private fun emptyInputEditText() {
+        editTextDate!!.text = null
+        editTextTime!!.text = null
     }
 }
