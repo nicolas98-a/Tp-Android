@@ -57,5 +57,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="services_complex">Servicios que ofrece nuestro complejo: </string>
+    <string name="cancha_1_futbol_5">Cancha 1 - Futbol 5</string>
+    <string name="date_reservation">¿Cuándo quieres reservar?</string>
+    <string name="time_reservation">¿A qué hora?</string>
+    <string name="reservar">Reservar</string>
+    <string name="map">Mapa</string>
+    <string name="iluminacion">Iluminacion</string>
+    <string name="techo">Techo</string>
+    <string name="sintetico">Sintetico</string>
+    <string name="price">Precio:</string>
 
 </resources>

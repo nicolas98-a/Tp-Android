@@ -8,6 +8,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.unaj.loginsqlite.model.Complex
@@ -19,6 +20,8 @@ class DetailComplex : AppCompatActivity() {
     private lateinit var detailComplexIvParking: ImageView
     private lateinit var detailComplexIvLockerRoom: ImageView
     private lateinit var detailComplexIvGrill: ImageView
+    private lateinit var editTextDate: EditText
+    private lateinit var editTextTime: EditText
 
     private lateinit var btnViewMap: Button
 
@@ -26,17 +29,14 @@ class DetailComplex : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_complex)
 
-        detailComplexName = findViewById(R.id.actDetailComplexName)
-        detailComplexPhone = findViewById(R.id.actDetailComplexPhone)
-        detailComplexIvParking = findViewById(R.id.ivComplexParking)
-        detailComplexIvLockerRoom = findViewById(R.id.ivComplexLockerRoom)
-        detailComplexIvGrill = findViewById(R.id.ivComplexGrill)
-
-        btnViewMap = findViewById(R.id.viewMap)
+        initViews()
 
         val complexFromIntent = intent.getSerializableExtra("objectComplex") as Complex
 
         renderComplexDetail(complexFromIntent)
+
+        editTextDate.setOnClickListener { showDatePickerDialog() }
+        editTextTime.setOnClickListener { showTimePickerDialog() }
 
     }
 
@@ -85,6 +85,37 @@ class DetailComplex : AppCompatActivity() {
         }
     }
 
+    private fun initViews() {
+        detailComplexName = findViewById(R.id.actDetailComplexName)
+        detailComplexPhone = findViewById(R.id.actDetailComplexPhone)
+        detailComplexIvParking = findViewById(R.id.ivComplexParking)
+        detailComplexIvLockerRoom = findViewById(R.id.ivComplexLockerRoom)
+        detailComplexIvGrill = findViewById(R.id.ivComplexGrill)
+        editTextDate = findViewById(R.id.etDate)
+        editTextTime = findViewById(R.id.etTime)
+
+        btnViewMap = findViewById(R.id.viewMap)
+    }
+
+    private fun showDatePickerDialog() {
+
+        val datePicker = DatePickerFragment{ day, month, year -> onDateSelected(day, month, year)}
+        datePicker.show(supportFragmentManager, "datePicker")
+    }
+
+    private fun onDateSelected(day: Int, month: Int, year: Int) {
+        editTextDate.setText("$day/$month/$year")
+    }
+
+    private fun showTimePickerDialog() {
+
+        val timePicker = TimePickerFragment { onTimeSelected(it)}
+        timePicker.show(supportFragmentManager, "timePicker")
+    }
+
+    private fun onTimeSelected(time: String) {
+        editTextTime.setText(time)
+    }
     private fun startMenuActivity() {
         val intentMenuActivity = Intent(this, MenuActivity::class.java)
         startActivity(intentMenuActivity)

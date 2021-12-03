@@ -15,11 +15,10 @@
 
         <ImageView
             android:id="@+id/ivComplex"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/ball"
             android:layout_gravity="center"
-
             />
 
         <LinearLayout
@@ -34,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="25dp"
+                android:textSize="35dp"
                 android:layout_marginLeft="25dp"
                 tools:text="Planeta Gol"/>
 
@@ -47,6 +46,14 @@
                 android:textAlignment="center"
                 android:layout_marginLeft="25dp"
                 tools:text="42558796" />
+
+            <Button
+                android:id="@+id/viewMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/map"
+                android:layout_gravity="center">
+            </Button>
 
         </LinearLayout>
 
@@ -136,16 +143,119 @@
 
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancha_1_futbol_5"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/iluminacion"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/icons_comprobado_48" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/techo"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/icons_comprobado_48" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sintetico"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/icons_eliminar_48" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp" />
+
+            <TextView
+                android:id="@+id/pitchPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                tools:text="$ 1300"/>
+        </LinearLayout>
 
     </LinearLayout>
-    
+
+
+    <EditText
+        android:id="@+id/etDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="@string/date_reservation"
+        android:textColorHint="@color/black"/>
+
+    <EditText
+        android:id="@+id/etTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="@string/time_reservation"
+        android:textColorHint="@color/black"/>
+
     <Button
-        android:id="@+id/viewMap"
+        android:id="@+id/btnReservation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mapa"
+        android:text="@string/reservar"
         android:layout_gravity="center">
     </Button>
-
 
 </LinearLayout>

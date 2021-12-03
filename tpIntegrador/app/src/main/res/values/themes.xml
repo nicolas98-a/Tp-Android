@@ -29,5 +29,8 @@
 
     <style name="Theme.LoginSqlite.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="DatePickerTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:colorAccent">#D52020</item>
+    </style>
 
 </resources>
