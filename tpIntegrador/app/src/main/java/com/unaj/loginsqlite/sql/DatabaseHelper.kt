@@ -490,6 +490,50 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return null
     }
 
+    // Obtener una lista de reservas filtradas por el email del usuario
+    @SuppressLint("Range")
+    fun getAllReservationsByUserEmail(userEmail: String): List<Reservation> {
+        val columns = arrayOf(COLUMN_RESERVATION_ID, COLUMN_RESERVATION_USER_EMAIL,
+        COLUMN_RESERVATION_COMPLEX_NAME, COLUMN_RESERVATION_DATE, COLUMN_RESERVATION_TIME)
+
+        val sortOrder = "$COLUMN_RESERVATION_COMPLEX_NAME ASC"
+        val reservationList = arrayListOf<Reservation>()
+
+        // criterio de seleccion
+        val selection = "$COLUMN_RESERVATION_USER_EMAIL = ?"
+
+        // argumento de seleccion
+        val selectionArgs = arrayOf(userEmail)
+
+        val db = this.readableDatabase
+
+        // query a la tabla user
+        val cursor = db.query(TABLE_COMPLEX,
+            columns,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            sortOrder)
+
+        if (cursor.moveToFirst()){
+            do {
+
+                val reservation = Reservation(
+                    id = cursor.getString(cursor.getColumnIndex(COLUMN_RESERVATION_ID)).toInt(),
+                    userEmail = cursor.getString(cursor.getColumnIndex(COLUMN_RESERVATION_USER_EMAIL)),
+                    complexName = cursor.getString(cursor.getColumnIndex(COLUMN_RESERVATION_COMPLEX_NAME)),
+                    date = cursor.getString(cursor.getColumnIndex(COLUMN_RESERVATION_DATE)),
+                    time = cursor.getString(cursor.getColumnIndex(COLUMN_RESERVATION_TIME))
+                )
+                reservationList.add(reservation)
+            }  while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return reservationList
+    }
+
     companion object {
         private val DATABASE_VERSION = 1
         private val DATABASE_NAME = "FootballManager.db"
