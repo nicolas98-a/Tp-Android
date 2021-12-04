@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_phone"
                 android:textColorHint="@color/colorTextHint"
-                android:inputType="text"
+                android:inputType="number"
                 android:background="@color/colorBackground"
                 android:maxLines="@integer/material_motion_duration_long_1"
                 android:textColor="@android:color/white">
@@ -71,47 +71,118 @@
                 android:inputType="text"
                 android:background="@color/colorBackground"
                 android:maxLines="@integer/material_motion_duration_long_1"
+                android:layout_marginBottom="20dp"
                 android:textColor="@android:color/white">
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/appCompatCheckBoxParking"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/checkBox_parking"
-            android:textColor="@color/colorText" />
+            android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/appCompatCheckBoxLockerRoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/checkBox_locker_room"
-            android:textColor="@color/colorText" />
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/appCompatCheckBoxParking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/checkBox_parking"
+                android:textColor="@color/colorText"
+                android:layout_margin="5dp"/>
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/appCompatCheckBoxGrill"
-            android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/appCompatCheckBoxLockerRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:text="@string/checkBox_locker_room"
+                android:textColor="@color/colorText" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/appCompatCheckBoxGrill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_grill"
+                android:textColor="@color/colorText"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp">
+            </androidx.appcompat.widget.AppCompatCheckBox>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/checkBox_grill"
-            android:textColor="@color/colorText"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp">
-        </androidx.appcompat.widget.AppCompatCheckBox>
+            android:text="@string/cancha_1_futbol_5"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="15dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutFieldPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextFieldPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/field_price"
+                android:textColorHint="@color/colorTextHint"
+                android:inputType="number"
+                android:background="@color/colorBackground"
+                android:maxLines="@integer/material_motion_duration_long_1"
+                android:layout_marginBottom="20dp"
+                android:textColor="@android:color/white">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/appCompatCheckBoxFieldIllumination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/iluminacion"
+                android:textColor="@color/colorText"
+                android:layout_margin="10dp"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/appCompatCheckBoxFieldCovered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:text="@string/techo"
+                android:textColor="@color/colorText" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/appCompatCheckBoxFieldSynthetic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sintetico"
+                android:textColor="@color/colorText"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp">
+            </androidx.appcompat.widget.AppCompatCheckBox>
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appCompatButtonSaveComplex"
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="@color/colorTextHint"
             android:text="@string/save"
             android:textColor="#5E35B1" />

@@ -91,6 +91,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             R.id.textViewLinkRegister -> {
                 // abro RegisterActivity
                 val intentRegister = Intent(applicationContext, RegisterActivity::class.java)
+                emptyInputEditText()
                 startActivity(intentRegister)
             }
         }
@@ -137,10 +138,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun startHome(){
-        /*val accountsIntent = Intent(activity, UsersListActivity::class.java)
-
-        emptyInputEditText()
-        startActivity(accountsIntent)*/
 
         val accountsIntent = Intent(activity, MenuActivity::class.java)
         emptyInputEditText()

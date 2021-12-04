@@ -10,7 +10,7 @@
     <string name="error_message_email_not_filled">El mail no puede quedar vacio</string>
     <string name="error_message_email">Ingrese un mail valido</string>
     <string name="error_message_password">Ingrese la contraseña</string>
-    <string name="success_message">Registration Successful</string>
+    <string name="success_message">Registro exitoso</string>
     <string name="text_not_member">¿No tienes una cuenta? Crea una</string>
     <string name="text_already_member">¿Estas registrado? Inicia sesion</string>
     <string name="error_email_exists">Ya existe el mail</string>
@@ -33,6 +33,7 @@
     <string name="error_message_complex_location">Ingrese la ubicacion</string>
     <string name="success_message_save_complex">Se guardo el complejo correctamente</string>
     <string name="success_message_save_reservation">Se ha registrado su reserva</string>
+    <string name="error_price">Ingrese el precio</string>
     <string name="error_message_date">Seleccione una fecha</string>
     <string name="error_message_time">Seleccione un horario</string>
     <string name="error_database">Error al escribir en la base de datos</string>
@@ -70,6 +71,7 @@
     <string name="techo">Techo</string>
     <string name="sintetico">Sintetico</string>
     <string name="price">Precio:</string>
+    <string name="field_price">Precio de la cancha</string>
 
 
 </resources>

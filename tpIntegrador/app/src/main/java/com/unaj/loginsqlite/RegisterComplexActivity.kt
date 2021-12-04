@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.unaj.loginsqlite.helpers.InputValidation
 import com.unaj.loginsqlite.model.Complex
+import com.unaj.loginsqlite.model.Field
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
 class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
@@ -25,14 +26,19 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var textInputLayoutComplexName: TextInputLayout
     private lateinit var textInputLayoutComplexPhone: TextInputLayout
     private lateinit var textInputLayoutComplexLocation: TextInputLayout
+    private lateinit var textInputLayoutFieldPrice: TextInputLayout
 
     private lateinit var textInputEditTextComplexName: TextInputEditText
     private lateinit var textInputEditTextComplexPhone: TextInputEditText
     private lateinit var textInputEditTextComplexLocation: TextInputEditText
+    private lateinit var textInputEditTextFieldPrice: TextInputEditText
 
     private lateinit var appCompatCheckBoxParking: AppCompatCheckBox
     private lateinit var appCompatCheckBoxLockerRoom: AppCompatCheckBox
     private lateinit var appCompatCheckBoxGrill: AppCompatCheckBox
+    private lateinit var appCompatCheckBoxFieldIllumination: AppCompatCheckBox
+    private lateinit var appCompatCheckBoxFieldCovered: AppCompatCheckBox
+    private lateinit var appCompatCheckBoxFieldSynthetic: AppCompatCheckBox
 
     private lateinit var appCompatButtonSaveComplex: AppCompatButton
 
@@ -59,14 +65,19 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
         textInputLayoutComplexName = findViewById(R.id.textInputLayoutComplexName)
         textInputLayoutComplexPhone = findViewById(R.id.textInputLayoutComplexPhone)
         textInputLayoutComplexLocation = findViewById(R.id.textInputLayoutComplexLocation)
+        textInputLayoutFieldPrice = findViewById(R.id.textInputLayoutFieldPrice)
 
         textInputEditTextComplexName = findViewById(R.id.textInputEditTextComplexName)
         textInputEditTextComplexPhone = findViewById(R.id.textInputEditTextComplexPhone)
         textInputEditTextComplexLocation = findViewById(R.id.textInputEditTextComplexLocation)
+        textInputEditTextFieldPrice = findViewById(R.id.textInputEditTextFieldPrice)
 
         appCompatCheckBoxParking = findViewById(R.id.appCompatCheckBoxParking)
         appCompatCheckBoxLockerRoom = findViewById(R.id.appCompatCheckBoxLockerRoom)
         appCompatCheckBoxGrill = findViewById(R.id.appCompatCheckBoxGrill)
+        appCompatCheckBoxFieldIllumination = findViewById(R.id.appCompatCheckBoxFieldIllumination)
+        appCompatCheckBoxFieldCovered = findViewById(R.id.appCompatCheckBoxFieldCovered)
+        appCompatCheckBoxFieldSynthetic = findViewById(R.id.appCompatCheckBoxFieldSynthetic)
 
         appCompatButtonSaveComplex = findViewById(R.id.appCompatButtonSaveComplex)
 
@@ -98,7 +109,9 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
         if (!inputValidation!!.isInputEditTextFilled(textInputEditTextComplexLocation, textInputLayoutComplexLocation, getString(R.string.error_message_complex_location))) {
             return
         }
-
+        if (!inputValidation!!.isInputEditTextFilled(textInputEditTextFieldPrice, textInputLayoutFieldPrice, getString(R.string.error_price))) {
+            return
+        }
 
         val complexParking = appCompatCheckBoxParking.isChecked
         val parking: Int = if (!complexParking) {
@@ -121,6 +134,23 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
             1 // true
         }
 
+        val fieldIllumination = appCompatCheckBoxFieldIllumination.isChecked
+        val illumination: Int = if (!fieldIllumination){
+            0 // false
+        } else {
+            1 //true
+        }
+
+        val fieldCovered = appCompatCheckBoxFieldCovered.isChecked
+        val covered: Int = if (!fieldCovered){
+            0 // false
+        } else {
+            1 //true
+        }
+
+        val fieldSynthetic = appCompatCheckBoxFieldSynthetic.isChecked
+        val synthetic: Int = if (!fieldSynthetic) 0 else 1
+
         val emailFromIntent = intent.getStringExtra("EMAIL")
 
 
@@ -134,22 +164,57 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
             adminEmail = emailFromIntent.toString()
         )
 
-        databaseHelper.addComplex(complex)
+        val field = Field(
+            complexName = textInputEditTextComplexName.text.toString(),
+            price = textInputEditTextFieldPrice.text.toString().toInt(),
+            illumination = illumination,
+            covered = covered,
+            synthetic = synthetic
+        )
 
-        AlertDialog.Builder(activity).apply {
-            setTitle(R.string.save)
-            setMessage(R.string.success_message_save_complex)
-            setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
-                dialog.dismiss()
-                startLogin()
-            })
-        }.show()
+        val rtaComplex = databaseHelper.addComplex(complex)
+        val rtaField = databaseHelper.addField(field)
+
+        if (rtaComplex == -1 || rtaField == -1){
+            // Fallo al guardar en DB
+            AlertDialog.Builder(this).apply {
+                setTitle(R.string.save)
+                setMessage(R.string.error_database)
+                setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
+                    dialog.dismiss()
+                    emptyInputEditText()
+                })
+            }.show()
+
+        } else {
+            AlertDialog.Builder(activity).apply {
+                setTitle(R.string.save)
+                setMessage(R.string.success_message_save_complex)
+                setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
+                    dialog.dismiss()
+                    startLogin()
+                })
+            }.show()
+        }
+
     }
 
     private fun startLogin(){
         val loginIntent = Intent(activity, LoginActivity::class.java)
-
-
         startActivity(loginIntent)
+    }
+
+    private fun emptyInputEditText() {
+        textInputEditTextComplexName!!.text = null
+        textInputEditTextComplexPhone!!.text = null
+        textInputEditTextComplexLocation!!.text = null
+        textInputEditTextFieldPrice!!.text = null
+
+        appCompatCheckBoxParking!!.isChecked = false
+        appCompatCheckBoxLockerRoom!!.isChecked = false
+        appCompatCheckBoxGrill!!.isChecked = false
+        appCompatCheckBoxFieldIllumination!!.isChecked = false
+        appCompatCheckBoxFieldCovered!!.isChecked = false
+        appCompatCheckBoxFieldSynthetic!!.isChecked = false
     }
 }

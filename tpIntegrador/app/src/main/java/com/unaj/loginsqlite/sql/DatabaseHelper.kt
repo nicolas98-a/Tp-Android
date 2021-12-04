@@ -247,7 +247,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     // Agregar un complejo
-    fun addComplex(complex: Complex) {
+    fun addComplex(complex: Complex): Int {
         val db = this.writableDatabase
 
         val values = ContentValues()
@@ -261,8 +261,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
 
         // Insertar fila
-        db.insert(TABLE_COMPLEX, null, values)
+        val res = db.insert(TABLE_COMPLEX, null, values)
         db.close()
+
+        return res.toInt()
     }
 
     // Actualizar complejo
@@ -417,7 +419,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     // Agregar una cancha
-    fun addField(field: Field) {
+    fun addField(field: Field): Int {
         val db = this.writableDatabase
 
         val values = ContentValues()
@@ -428,8 +430,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         values.put(COLUMN_FIELD_SYNTHETIC, field.synthetic)
 
         // Insertar fila
-        db.insert(TABLE_FIELD, null, values)
+       val res = db.insert(TABLE_FIELD, null, values)
         db.close()
+
+        return res.toInt()
     }
 
     // Agregar una reserva
