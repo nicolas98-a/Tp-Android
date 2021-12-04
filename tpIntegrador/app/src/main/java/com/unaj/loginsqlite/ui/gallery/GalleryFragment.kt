@@ -17,6 +17,8 @@ import com.unaj.loginsqlite.R
 import com.unaj.loginsqlite.databinding.FragmentGalleryBinding
 import com.unaj.loginsqlite.helpers.UserRolApplication
 import androidx.navigation.fragment.findNavController
+import com.unaj.loginsqlite.LoginActivity
+import com.unaj.loginsqlite.UpdateUserActivity
 
 class GalleryFragment : Fragment() {
 
@@ -55,9 +57,15 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.updateDates.setOnClickListener {findNavController().navigate(R.id.action_nav_gallery_to_updateUserFragment)}
+        //binding.updateDates.setOnClickListener {findNavController().navigate(R.id.action_nav_gallery_to_updateUserFragment)}
+        binding.updateDates.setOnClickListener { startUpdateUser()}
     }
 
+    private fun startUpdateUser() {
+        val updateUser = Intent(activity, UpdateUserActivity::class.java)
+
+        startActivity(updateUser)
+    }
 
 
     private fun requestPermission() {

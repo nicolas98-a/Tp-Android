@@ -11,6 +11,7 @@
     <string name="error_message_email">Ingrese un mail valido</string>
     <string name="error_message_password">Ingrese la contraseña</string>
     <string name="success_message">Registration Successful</string>
+    <string name="change_message">Cambios guardados</string>
     <string name="text_not_member">¿No tienes una cuenta? Crea una</string>
     <string name="text_already_member">¿Estas registrado? Inicia sesion</string>
     <string name="error_email_exists">Ya existe el mail</string>

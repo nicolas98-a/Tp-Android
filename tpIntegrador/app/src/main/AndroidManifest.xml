@@ -41,6 +41,9 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".UpdateUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -48,6 +51,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
     </application>
