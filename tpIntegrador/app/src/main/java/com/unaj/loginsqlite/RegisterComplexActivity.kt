@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.core.widget.NestedScrollView
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.unaj.loginsqlite.helpers.InputValidation

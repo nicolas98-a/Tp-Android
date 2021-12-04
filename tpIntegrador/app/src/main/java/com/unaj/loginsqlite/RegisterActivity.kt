@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
@@ -15,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.unaj.loginsqlite.helpers.InputValidation
+import com.unaj.loginsqlite.helpers.UserRolApplication
 import com.unaj.loginsqlite.model.User
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
@@ -128,6 +128,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             )
 
             databaseHelper!!.addUser(user)
+
+            UserRolApplication.prefs.saveUserName(textInputEditTextName!!.text.toString().trim { it <= ' '})
 
             // AlertDialog con mensaje exitoso
             AlertDialog.Builder(activity).apply {

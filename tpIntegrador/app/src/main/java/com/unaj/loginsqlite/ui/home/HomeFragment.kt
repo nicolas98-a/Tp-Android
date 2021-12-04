@@ -53,12 +53,12 @@ class HomeFragment : Fragment()  {
 
         initRecycler()
 
-        val btnLogOut = binding.logOut
+        /*val btnLogOut = binding.logOut
         btnLogOut.setOnClickListener {
             UserRolApplication.prefs.wipe()
             startLogin()
 
-        }
+        }*/
 
         return root
     }

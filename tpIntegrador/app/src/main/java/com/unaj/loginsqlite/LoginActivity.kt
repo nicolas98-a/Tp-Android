@@ -114,7 +114,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             startHome()
 
         } else {
-
+            startHome()
             AlertDialog.Builder(activity).apply {
                 setTitle(R.string.save)
 

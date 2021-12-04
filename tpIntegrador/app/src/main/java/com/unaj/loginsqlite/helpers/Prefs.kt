@@ -5,10 +5,15 @@ import android.content.Context
 class Prefs (val context:Context){
 
     val SHARED_NAME = "Mydb"
+    val SHARED_USER_NAME = "username"
     val SHARED_USER_Email = "useremail"
     val SHARED_ROL = "rol"
 
     val storage = context.getSharedPreferences(SHARED_NAME, 0)
+
+    fun saveUserName(name:String){
+        storage.edit().putString(SHARED_USER_NAME, name).apply()
+    }
 
     fun saveUserEmail(email:String){
         storage.edit().putString(SHARED_USER_Email, email).apply()
@@ -16,6 +21,10 @@ class Prefs (val context:Context){
 
     fun saveUserRol(rol:Boolean){
         storage.edit().putBoolean(SHARED_ROL, rol).apply()
+    }
+
+    fun getUserName():String{
+        return storage.getString(SHARED_USER_NAME, "")!!
     }
 
     fun getUserEmail():String{
