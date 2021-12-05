@@ -1,7 +1,13 @@
 package com.unaj.loginsqlite
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
@@ -13,6 +19,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.unaj.loginsqlite.helpers.InputValidation
@@ -21,6 +29,7 @@ import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.model.Field
 import com.unaj.loginsqlite.model.Reservation
 import com.unaj.loginsqlite.sql.DatabaseHelper
+import com.unaj.loginsqlite.ui.slideshow.SlideshowFragment
 
 class DetailComplex : AppCompatActivity() {
 
@@ -49,6 +58,9 @@ class DetailComplex : AppCompatActivity() {
         setContentView(R.layout.activity_detail_complex)
 
         initViews()
+
+        createNotificationChannel()
+
         databaseHelper = DatabaseHelper(this)
         inputValidation = InputValidation(this)
 
@@ -99,6 +111,8 @@ class DetailComplex : AppCompatActivity() {
                     emptyInputEditText()
                 })
             }.show()
+
+            generateNotification()
         }
     }
 
@@ -215,5 +229,58 @@ class DetailComplex : AppCompatActivity() {
     private fun emptyInputEditText() {
         editTextDate!!.text = null
         editTextTime!!.text = null
+    }
+
+    private fun generateNotification() {
+        val notificationId = 0
+        val channelId = getString(R.string.basic_channel_id)
+        val largeIcon = BitmapFactory.decodeResource(
+            resources,
+            R.drawable.ball
+        )
+
+        val date = editTextDate.text.toString()
+        val time = editTextTime.text.toString()
+        val complexNameNoti = detailComplexName.text.toString()
+        val price = textViewFieldPrice.text.toString()
+        val contentText = "Ha reservado el dia $date a las $time"
+
+
+
+        val notification = NotificationCompat.Builder(this, channelId)
+            .setLargeIcon(largeIcon)
+            .setSmallIcon(R.drawable.logo_pelota)
+            .setContentTitle(getString(R.string.notification_title))
+            .setContentText(contentText)
+            .setSubText(getString(R.string.unaj))
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(
+                    "Ha reservado el dia $date a las $time. \n" +
+                            "Lo esperamos en el complejo $complexNameNoti. \n " +
+                        "Ha reservado la Cancha 1. \n " +
+                        "Debe abonar $price el dia del partido"))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .build()
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(notificationId, notification)
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.basic_chanel_name)
+            val channelId = getString(R.string.basic_channel_id)
+            val descriptionText = getString(R.string.basic_channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+
+            val channel = NotificationChannel(channelId, name, importance).apply {
+                description = descriptionText
+            }
+            val nm: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            nm.createNotificationChannel(channel)
+        }
     }
 }

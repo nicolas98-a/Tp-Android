@@ -76,4 +76,10 @@
     <string name="price">Price:</string>
     <string name="field_price">Court price</string>
 
+    <string name="basic_chanel_name">Notifications Reservations</string>
+    <string name="basic_channel_id">basic_channel</string>
+    <string name="basic_channel_description">Channel for simple notifications</string>
+    <string name="notification_title">Reserve court</string>
+    <string name="unaj">UNAJ</string>
+
 </resources>

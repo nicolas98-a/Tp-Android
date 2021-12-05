@@ -74,6 +74,12 @@
     <string name="sintetico">Sintetico</string>
     <string name="price">Precio:</string>
     <string name="field_price">Precio de la cancha</string>
+    
+    <string name="basic_chanel_name">Notificaciones Reservas</string>
+    <string name="basic_channel_id">basic_channel</string>
+    <string name="basic_channel_description">Canal para notificaciones sencillas</string>
+    <string name="notification_title">Reservar cancha</string>
+    <string name="unaj">UNAJ</string>
 
 
 </resources>

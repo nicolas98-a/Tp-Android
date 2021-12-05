@@ -1,5 +1,6 @@
 package com.unaj.loginsqlite.Adapters
 
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,8 @@ class ReservAdapter(val reservs:List<Reservation>):RecyclerView.Adapter<ReservAd
             textViewComplexName.text = reserv.complexName
             textViewReservDate.text = reserv.date
             textViewReservTime.text = reserv.time
+
+
         }
     }
 
