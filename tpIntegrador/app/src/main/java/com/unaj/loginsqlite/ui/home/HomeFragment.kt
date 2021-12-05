@@ -19,6 +19,7 @@ import com.unaj.loginsqlite.R
 import com.unaj.loginsqlite.databinding.FragmentHomeBinding
 
 import com.unaj.loginsqlite.helpers.UserRolApplication
+import com.unaj.loginsqlite.helpers.UserRolApplication.Companion.prefs
 
 import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.sql.DatabaseHelper
@@ -52,13 +53,6 @@ class HomeFragment : Fragment()  {
         databaseHelper = DatabaseHelper(this.requireActivity())
 
         initRecycler()
-
-        val btnLogOut = binding.logOut
-        btnLogOut.setOnClickListener {
-            UserRolApplication.prefs.wipe()
-            startLogin()
-
-        }
 
         return root
     }

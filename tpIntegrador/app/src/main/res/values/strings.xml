@@ -11,6 +11,7 @@
     <string name="error_message_email">Ingrese un mail valido</string>
     <string name="error_message_password">Ingrese la contraseña</string>
     <string name="success_message">Registro exitoso</string>
+    <string name="change_message">Cambios guardados</string>
     <string name="text_not_member">¿No tienes una cuenta? Crea una</string>
     <string name="text_already_member">¿Estas registrado? Inicia sesion</string>
     <string name="error_email_exists">Ya existe el mail</string>
@@ -53,6 +54,7 @@
     <string name="menu_gallery">Perfil</string>
     <string name="menu_slideshow">Reservas</string>
     <string name="menu_contact">Contacto</string>
+    <string name="menu_close_session">Salir</string>
 
     <!-- MENU PERFIL -->
     <string name="menu_title_perfil">Mis Datos Personales</string>

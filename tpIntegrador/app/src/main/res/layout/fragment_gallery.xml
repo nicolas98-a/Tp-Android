@@ -19,9 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
-        
+
         <!-- IMAGEN DEL USUARIO -->
-        <androidx.appcompat.widget.AppCompatImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
@@ -29,53 +30,47 @@
             android:src="@drawable/logo_perfil" />
 
         <!-- DATOS DEL USUARIO -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="10dp"
+            android:textColor="#fff"
+            android:text="Galeria" />
+
         <TextView
-            android:text="Nombre"
+            android:id="@+id/user_name"
             android:textSize="18sp"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Apellido"
+            android:id="@+id/user_email"
             android:textSize="18sp"
             android:layout_marginTop="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Email"
+            android:text="Rol: Usuario"
             android:textSize="18sp"
             android:layout_marginTop="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <!-- BOTONES-->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/update_dates"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="40dp"
             android:background="@color/colorPrimaryDark"
-            android:drawableStart="@drawable/update_ico"
-            android:drawablePadding="15dp"
-            android:padding="15dp"
             android:text="@string/update_dates"
-            android:textColor="#fff" />
-
-        <Button
-            android:id="@+id/update_pass"
-            android:text="@string/update_pass"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/update_pass_ico"
-            android:drawablePadding="15dp"
-            android:padding="15dp"
-            android:textColor="#fff"
-            android:background="@color/colorPrimaryDark"/>
+            android:textColor="#FFFFFF"
+            tools:ignore="TextContrastCheck" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

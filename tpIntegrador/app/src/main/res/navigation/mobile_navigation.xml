@@ -15,7 +15,11 @@
         android:id="@+id/nav_gallery"
         android:name="com.unaj.loginsqlite.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_nav_gallery_to_updateUserFragment"
+            app:destination="@id/updateUserFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -23,8 +27,17 @@
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
+        android:id="@+id/updateUserFragment"
+        android:name="com.unaj.loginsqlite.UpdateUserActivity"
+        android:label="Editar Datos"
+        tools:layout="@layout/activity_update_user" >
+        <action
+            android:id="@+id/action_updateUserFragment_to_nav_gallery"
+            app:destination="@id/nav_gallery" />
+    </fragment>
+    <fragment
         android:id="@+id/contactFragment"
         android:name="com.unaj.loginsqlite.ContactFragment"
-        android:label="fragment_contact"
+        android:label="@string/menu_contact"
         tools:layout="@layout/fragment_contact" />
 </navigation>

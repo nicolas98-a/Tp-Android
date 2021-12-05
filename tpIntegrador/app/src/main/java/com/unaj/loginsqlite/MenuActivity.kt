@@ -7,6 +7,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -17,6 +18,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.unaj.loginsqlite.databinding.ActivityMenuBinding
+import com.unaj.loginsqlite.helpers.UserRolApplication
 import com.unaj.loginsqlite.model.Complex
 import com.unaj.loginsqlite.model.Field
 import com.unaj.loginsqlite.sql.DatabaseHelper
@@ -44,17 +46,39 @@ class MenuActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.fragment_contact
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.contactFragment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        val headerView = navView.getHeaderView(0)
+
+        val user_name = headerView.findViewById<TextView>(R.id.user_name)
+        val nameFromPrefs = UserRolApplication.prefs.getUserName()
+        user_name.text = nameFromPrefs;
+
+        val user_email = headerView.findViewById<TextView>(R.id.user_email)
+        val emailFromPrefs = UserRolApplication.prefs.getUserEmail()
+        user_email.text = emailFromPrefs
+
+        val exitItem = navView.menu.findItem(R.id.logOut)
+        exitItem.setOnMenuItemClickListener {
+            UserRolApplication.prefs.wipe()
+            startLogin()
+            true
+        }
 
         databaseHelper = DatabaseHelper(this)
         //cargarCanchas()
         //cargarComplejos()
 
+    }
+
+    private fun startLogin() {
+        val loginIntent = Intent(this, LoginActivity::class.java)
+
+        startActivity(loginIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

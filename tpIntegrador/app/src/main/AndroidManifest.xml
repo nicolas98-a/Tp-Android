@@ -39,8 +39,12 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".UpdateUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

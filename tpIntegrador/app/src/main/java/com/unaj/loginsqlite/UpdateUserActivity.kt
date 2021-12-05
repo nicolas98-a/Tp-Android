@@ -2,16 +2,13 @@ package com.unaj.loginsqlite
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.NestedScrollView
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.unaj.loginsqlite.helpers.InputValidation
@@ -19,9 +16,9 @@ import com.unaj.loginsqlite.helpers.UserRolApplication
 import com.unaj.loginsqlite.model.User
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
-class RegisterActivity : AppCompatActivity(), View.OnClickListener {
+class UpdateUserActivity : AppCompatActivity(), View.OnClickListener {
 
-    private val activity = this@RegisterActivity
+    private val activity = this@UpdateUserActivity
 
     private lateinit var nestedScrollView: NestedScrollView
 
@@ -35,16 +32,14 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var textInputEditTextPassword: TextInputEditText
     private lateinit var textInputEditTextConfirmPassword: TextInputEditText
 
-    private lateinit var appCompatCheckBox: AppCompatCheckBox
-    private lateinit var appCompatButtonRegister: AppCompatButton
-    private lateinit var appCompatTextViewLoginLink: AppCompatTextView
+    private lateinit var appCompatButtonUpdate: AppCompatButton
 
     private lateinit var inputValidation: InputValidation
     private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        setContentView(R.layout.activity_update_user)
 
         // inicializo las vistas
         initViews()
@@ -54,6 +49,22 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
         // inicilizo los objetos que voy a usar
         initObjects()
+    }
+
+    private fun initListeners() {
+        appCompatButtonUpdate!!.setOnClickListener(this)
+    }
+
+    private fun initObjects() {
+        inputValidation = InputValidation(activity)
+        databaseHelper = DatabaseHelper(activity)
+    }
+
+    // sobreescribo para escuchar el click en la view
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.appCompatButtonUpdate -> postDataToSQLite()
+        }
     }
 
     private fun initViews() {
@@ -69,88 +80,62 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         textInputEditTextPassword = findViewById<View>(R.id.textInputEditTextPassword) as TextInputEditText
         textInputEditTextConfirmPassword = findViewById<View>(R.id.textInputEditTextConfirmPassword) as TextInputEditText
 
-        appCompatCheckBox = findViewById<View>(R.id.appCompatCheckBoxRol) as AppCompatCheckBox
-        appCompatButtonRegister = findViewById<View>(R.id.appCompatButtonRegister) as AppCompatButton
-
-        appCompatTextViewLoginLink = findViewById<View>(R.id.appCompatTextViewLoginLink) as AppCompatTextView
-
-    }
-
-    private fun initListeners() {
-        appCompatButtonRegister!!.setOnClickListener(this)
-        appCompatTextViewLoginLink!!.setOnClickListener(this)
-    }
-
-    private fun initObjects() {
-        inputValidation = InputValidation(activity)
-        databaseHelper = DatabaseHelper(activity)
-    }
-
-    // sobreescribo para escuchar el click en la view
-    override fun onClick(v: View) {
-        when (v.id) {
-           R.id.appCompatButtonRegister -> postDataToSQLite()
-           R.id.appCompatTextViewLoginLink -> finish()
-        }
+        appCompatButtonUpdate = findViewById<View>(R.id.appCompatButtonUpdate) as AppCompatButton
     }
 
     // Valido los inputs y guardo un usuario
     private fun postDataToSQLite() {
-        if (!inputValidation!!.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_message_name))) {
+        if (!inputValidation!!.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(
+                R.string.error_message_name
+            ))) {
             return
         }
-        if (!inputValidation!!.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email_not_filled))) {
+        if (!inputValidation!!.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(
+                R.string.error_message_email_not_filled
+            ))) {
             return
         }
-        if (!inputValidation!!.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
+        if (!inputValidation!!.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(
+                R.string.error_message_email
+            ))) {
             return
         }
-        if (!inputValidation!!.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_password))) {
+        if (!inputValidation!!.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(
+                R.string.error_message_password
+            ))) {
             return
         }
         if (!inputValidation!!.isInputEditTextMatches(textInputEditTextPassword, textInputEditTextConfirmPassword, textInputLayoutConfirmPassword,
-            getString(R.string.error_password_match))) {
+                getString(R.string.error_password_match))) {
             return
         }
 
-        if (!databaseHelper!!.checkUser(textInputEditTextEmail!!.text.toString().trim())) {
-            val userRol = appCompatCheckBox.isChecked
-            val rol: Int = if (userRol) {
-                0 // Es Administrador
-            } else {
-                1 // Usuario comun
-            }
 
             var user = User(
                 name = textInputEditTextName!!.text.toString().trim(),
                 email = textInputEditTextEmail!!.text.toString().trim(),
                 password = textInputEditTextPassword!!.text.toString().trim(),
-                rol = rol
+                rol = 1
             )
 
-            databaseHelper!!.addUser(user)
+            databaseHelper!!.updateUser(user)
+
+            UserRolApplication.prefs.saveUserName(textInputEditTextName!!.text.toString().trim { it <= ' '})
 
             // AlertDialog con mensaje exitoso
             AlertDialog.Builder(activity).apply {
                 setTitle(R.string.save)
-                setMessage(R.string.success_message)
+                setMessage(R.string.change_message)
                 setPositiveButton(R.string.ok, DialogInterface.OnClickListener { dialog, which ->
-                    if (user.rol == 0){
-                        startSaveComplexActivity(textInputEditTextEmail!!.text.toString().trim())
-                    }else {
                         startLogin()
-                    }
                 })
             }.show()
 
 
             // SnackBar con mensaje de registro exitoso
-           // Snackbar.make(nestedScrollView!!, getString(R.string.success_message), Snackbar.LENGTH_LONG).show()
-           // emptyInputEditText()
-        } else {
-            // Mensaje de error ya existe el usuario
-            Snackbar.make(nestedScrollView!!, getString(R.string.error_email_exists), Snackbar.LENGTH_LONG).show()
-        }
+            // Snackbar.make(nestedScrollView!!, getString(R.string.success_message), Snackbar.LENGTH_LONG).show()
+            // emptyInputEditText()
+
     }
 
     // Vacio los inputs
@@ -161,17 +146,12 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         textInputEditTextConfirmPassword!!.text = null
     }
 
-    private fun startSaveComplexActivity(email: String){
-        val saveComplexIntent = Intent(activity, RegisterComplexActivity::class.java)
-        saveComplexIntent.putExtra("EMAIL", email)
-        emptyInputEditText()
-        startActivity(saveComplexIntent)
-    }
 
     private fun startLogin(){
         val loginIntent = Intent(activity, LoginActivity::class.java)
-        UserRolApplication.prefs.saveUserName(textInputEditTextName!!.text.toString().trim { it <= ' '})
+
         emptyInputEditText()
+
         startActivity(loginIntent)
     }
 }

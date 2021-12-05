@@ -17,9 +17,12 @@
             android:icon="@drawable/ic_menu_reservas"
             android:title="@string/menu_slideshow" />
         <item
-            android:id="@+id/fragment_contact"
+            android:id="@+id/contactFragment"
             android:icon="@drawable/ic_menu_contact"
             android:title="@string/menu_contact" />
-
+        <item
+            android:id="@+id/logOut"
+            android:icon="@drawable/ic_menu_session"
+            android:title="@string/menu_close_session" />
     </group>
 </menu>
