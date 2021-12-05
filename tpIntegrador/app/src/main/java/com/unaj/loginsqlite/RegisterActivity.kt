@@ -132,8 +132,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
             // AlertDialog con mensaje exitoso
             AlertDialog.Builder(activity).apply {
-                setTitle(R.string.save)
+                setTitle(R.string.text_register)
                 setMessage(R.string.success_message)
+                setIcon(R.drawable.logo_perfil)
                 setPositiveButton(R.string.ok, DialogInterface.OnClickListener { dialog, which ->
                     if (user.rol == 0){
                         startSaveComplexActivity(textInputEditTextEmail!!.text.toString().trim())
@@ -143,13 +144,17 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 })
             }.show()
 
-
-            // SnackBar con mensaje de registro exitoso
-           // Snackbar.make(nestedScrollView!!, getString(R.string.success_message), Snackbar.LENGTH_LONG).show()
-           // emptyInputEditText()
         } else {
             // Mensaje de error ya existe el usuario
             Snackbar.make(nestedScrollView!!, getString(R.string.error_email_exists), Snackbar.LENGTH_LONG).show()
+            AlertDialog.Builder(activity).apply {
+                setTitle(R.string.text_register)
+                setMessage(R.string.error_email_exists)
+                setIcon(R.drawable.icons_eliminar_48)
+                setPositiveButton(R.string.ok, DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+                })
+            }.show()
         }
     }
 

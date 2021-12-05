@@ -28,7 +28,7 @@
     <string name="checkBox_parking">Parking</string>
     <string name="checkBox_locker_room">Looker Room</string>
     <string name="checkBox_grill">Grill</string>
-    <string name="save">Save</string>
+    <string name="save"><font fgcolor="#FF000000">Save</font></string>
 
     <string name="error_message_complex_name">Enter the name of the Complex</string>
     <string name="error_message_complex_phone">Enter the phone</string>

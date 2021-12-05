@@ -97,6 +97,7 @@ class DetailComplex : AppCompatActivity() {
             AlertDialog.Builder(this).apply {
                 setTitle(R.string.save)
                 setMessage(R.string.error_database)
+                setIcon(R.drawable.icons_eliminar_48)
                 setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
                     dialog.dismiss()
                     emptyInputEditText()
@@ -106,6 +107,7 @@ class DetailComplex : AppCompatActivity() {
             AlertDialog.Builder(this).apply {
                 setTitle(R.string.save)
                 setMessage(R.string.success_message_save_reservation)
+                setIcon(R.drawable.ball)
                 setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
                     dialog.dismiss()
                     emptyInputEditText()

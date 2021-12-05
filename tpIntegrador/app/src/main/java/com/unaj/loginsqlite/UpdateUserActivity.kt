@@ -126,15 +126,11 @@ class UpdateUserActivity : AppCompatActivity(), View.OnClickListener {
             AlertDialog.Builder(activity).apply {
                 setTitle(R.string.save)
                 setMessage(R.string.change_message)
+                setIcon(R.drawable.logo_perfil)
                 setPositiveButton(R.string.ok, DialogInterface.OnClickListener { dialog, which ->
                         startLogin()
                 })
             }.show()
-
-
-            // SnackBar con mensaje de registro exitoso
-            // Snackbar.make(nestedScrollView!!, getString(R.string.success_message), Snackbar.LENGTH_LONG).show()
-            // emptyInputEditText()
 
     }
 

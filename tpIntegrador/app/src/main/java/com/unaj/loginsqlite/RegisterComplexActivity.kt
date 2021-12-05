@@ -180,6 +180,7 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
             AlertDialog.Builder(this).apply {
                 setTitle(R.string.save)
                 setMessage(R.string.error_database)
+                setIcon(R.drawable.icons_eliminar_48)
                 setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
                     dialog.dismiss()
                     emptyInputEditText()
@@ -190,6 +191,7 @@ class RegisterComplexActivity : AppCompatActivity(), View.OnClickListener {
             AlertDialog.Builder(activity).apply {
                 setTitle(R.string.save)
                 setMessage(R.string.success_message_save_complex)
+                setIcon(R.drawable.icons_comprobado_48)
                 setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
                     dialog.dismiss()
                     startLogin()

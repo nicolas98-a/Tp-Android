@@ -4,8 +4,8 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Contraseña</string>
     <string name="hint_confirm_password">Confirmar contraseña</string>
-    <string name="text_login">Iniciar sesion</string>
-    <string name="text_register">Registrarse</string>
+    <string name="text_login"><font fgcolor="#FF000000">Iniciar sesion</font></string>
+    <string name="text_register"><font fgcolor="#FF000000">Registrarse</font></string>
     <string name="error_message_name">Ingrese el nombre completo</string>
     <string name="error_message_email_not_filled">El mail no puede quedar vacio</string>
     <string name="error_message_email">Ingrese un mail valido</string>
@@ -27,7 +27,7 @@
     <string name="checkBox_parking">Estacionamiento</string>
     <string name="checkBox_locker_room">Vestuario</string>
     <string name="checkBox_grill">Parrilla</string>
-    <string name="save">Guardar</string>
+    <string name="save"><font fgcolor="#FF000000">Guardar</font></string>
 
     <string name="error_message_complex_name">Ingrese el nombre del Complejo</string>
     <string name="error_message_complex_phone">Ingrese el telefono</string>

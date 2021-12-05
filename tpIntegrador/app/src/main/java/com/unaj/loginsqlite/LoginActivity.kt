@@ -117,8 +117,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         } else {
 
             AlertDialog.Builder(activity).apply {
-                setTitle(R.string.save)
-
+                setTitle(R.string.text_login)
+                setIcon(R.drawable.logo_perfil)
                 setMessage(R.string.error_valid_email_password)
                 setPositiveButton("Ok") { dialog, _ ->
                     dialog.dismiss()
