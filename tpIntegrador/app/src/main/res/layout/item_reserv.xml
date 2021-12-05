@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/ivReserv"
@@ -21,8 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Nombre Complejo"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="bold"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/black"/>
 
@@ -36,6 +41,7 @@
             android:layout_gravity="center_horizontal"
             android:textColor="@color/black"/>
 
+
         <TextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
@@ -47,4 +53,17 @@
             android:textColor="@color/black"/>
 
     </LinearLayout>
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewOptions"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:layout_margin="20dp"
+        android:gravity="center_vertical"
+        android:text="⋮"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+</com.google.android.material.card.MaterialCardView>

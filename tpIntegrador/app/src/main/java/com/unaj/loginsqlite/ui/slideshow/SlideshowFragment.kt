@@ -1,9 +1,12 @@
 package com.unaj.loginsqlite.ui.slideshow
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +16,7 @@ import com.unaj.loginsqlite.MenuActivity
 import com.unaj.loginsqlite.R
 import com.unaj.loginsqlite.databinding.FragmentSlideshowBinding
 import com.unaj.loginsqlite.helpers.UserRolApplication.Companion.prefs
+import com.unaj.loginsqlite.model.Reservation
 import com.unaj.loginsqlite.sql.DatabaseHelper
 
 class SlideshowFragment : Fragment() {
@@ -25,6 +29,8 @@ class SlideshowFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var databaseHelper: DatabaseHelper
+    private lateinit var adapter: ReservAdapter
+    private lateinit var reservs: List<Reservation>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,15 +47,45 @@ class SlideshowFragment : Fragment() {
         return root
     }
 
+
     private fun initRecycler() {
         val userEmail = prefs.getUserEmail()
-        val reservs = databaseHelper.getAllReservationsByUserEmail(userEmail)
+        reservs = databaseHelper.getAllReservationsByUserEmail(userEmail)
         binding.rvReserv.layoutManager = LinearLayoutManager(MenuActivity().getActivity())
-        val adapter = ReservAdapter(reservs)
+        adapter = ReservAdapter(reservs, object : ReservAdapter.OptionsMenuClickListener {
+            override fun onOptionsMenuClicked(position: Int) {
+                performOptionsMenuClick(position)
+            }
+
+        })
         binding.rvReserv.adapter = adapter
 
         registerForContextMenu(binding.rvReserv)
 
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun performOptionsMenuClick(position: Int) {
+        val popupMenu = PopupMenu(this.context, binding.rvReserv[position].findViewById(R.id.textViewOptions))
+        popupMenu.inflate(R.menu.options_menu)
+
+        popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener{
+
+            override fun onMenuItemClick(item: MenuItem?): Boolean {
+                when(item?.itemId){
+                    R.id.action_settings_reservas -> {
+                        val tempReservation = reservs[position]
+                        databaseHelper.deleteReservation(tempReservation)
+                        adapter.notifyDataSetChanged()
+                        initRecycler()
+                        return true
+                    }
+                }
+                return false
+            }
+
+        })
+        popupMenu.show()
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
@@ -74,4 +110,5 @@ class SlideshowFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

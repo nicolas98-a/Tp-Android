@@ -81,5 +81,6 @@
     <string name="basic_channel_description">Channel for simple notifications</string>
     <string name="notification_title">Reserve court</string>
     <string name="unaj">UNAJ</string>
+    <string name="delete_reserva"><font fgcolor='#FF1400'>Cancel Reservation</font></string>
 
 </resources>

@@ -534,6 +534,16 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return reservationList
     }
 
+    // Borrar una reserva
+    fun deleteReservation(reservation: Reservation) {
+        val db = this.writableDatabase
+        db.delete(
+            TABLE_RESERVATION, "$COLUMN_RESERVATION_ID = ?",
+            arrayOf(reservation.id.toString()))
+
+        db.close()
+    }
+
     companion object {
         private val DATABASE_VERSION = 1
         private val DATABASE_NAME = "FootballManager.db"

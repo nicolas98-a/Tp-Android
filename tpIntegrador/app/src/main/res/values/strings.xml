@@ -80,6 +80,7 @@
     <string name="basic_channel_description">Canal para notificaciones sencillas</string>
     <string name="notification_title">Reservar cancha</string>
     <string name="unaj">UNAJ</string>
+    <string name="delete_reserva"><font fgcolor='#FF1400'>Cancelar Reserva</font></string>
 
 
 </resources>
