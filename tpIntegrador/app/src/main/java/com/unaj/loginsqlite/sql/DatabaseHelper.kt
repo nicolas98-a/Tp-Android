@@ -508,7 +508,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.readableDatabase
 
         // query a la tabla user
-        val cursor = db.query(TABLE_COMPLEX,
+        val cursor = db.query(TABLE_RESERVATION,
             columns,
             selection,
             selectionArgs,
