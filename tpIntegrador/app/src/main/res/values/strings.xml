@@ -67,13 +67,14 @@
     <string name="cancha_1_futbol_5">Cancha 1 - Futbol 5</string>
     <string name="date_reservation">¿Cuándo quieres reservar?</string>
     <string name="time_reservation">¿A qué hora?</string>
-    <string name="reservar">Reservar</string>
-    <string name="map">Mapa</string>
+    <string name="reservar"><font fgcolor="#FF000000">Reservar</font></string>
+    <string name="map"><font fgcolor="#FF000000">Mapa</font></string>
     <string name="iluminacion">Iluminacion</string>
     <string name="techo">Techo</string>
     <string name="sintetico">Sintetico</string>
     <string name="price">Precio:</string>
     <string name="field_price">Precio de la cancha</string>
+    <string name="error_reservation_message">"No hay disponibilidad en ese horario y /o dia. Por favor elija otro"</string>
     
     <string name="basic_chanel_name">Notificaciones Reservas</string>
     <string name="basic_channel_id">basic_channel</string>

@@ -37,6 +37,8 @@ class UpdateUserActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var inputValidation: InputValidation
     private lateinit var databaseHelper: DatabaseHelper
 
+    private lateinit var userEmailFromIntent: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_user)
@@ -58,6 +60,7 @@ class UpdateUserActivity : AppCompatActivity(), View.OnClickListener {
     private fun initObjects() {
         inputValidation = InputValidation(activity)
         databaseHelper = DatabaseHelper(activity)
+        userEmailFromIntent = intent.getStringExtra("userEmail").toString()
     }
 
     // sobreescribo para escuchar el click en la view
@@ -110,8 +113,10 @@ class UpdateUserActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
 
+        val currentUserId = databaseHelper.getUserId(userEmailFromIntent)
 
             var user = User(
+                id = currentUserId,
                 name = textInputEditTextName!!.text.toString().trim(),
                 email = textInputEditTextEmail!!.text.toString().trim(),
                 password = textInputEditTextPassword!!.text.toString().trim(),
@@ -121,6 +126,7 @@ class UpdateUserActivity : AppCompatActivity(), View.OnClickListener {
             databaseHelper!!.updateUser(user)
 
             UserRolApplication.prefs.saveUserName(textInputEditTextName!!.text.toString().trim { it <= ' '})
+            UserRolApplication.prefs.saveUserEmail(textInputEditTextEmail!!.text.toString().trim { it <= ' '})
 
             // AlertDialog con mensaje exitoso
             AlertDialog.Builder(activity).apply {

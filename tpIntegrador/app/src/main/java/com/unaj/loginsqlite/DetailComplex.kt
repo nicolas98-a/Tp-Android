@@ -85,37 +85,51 @@ class DetailComplex : AppCompatActivity() {
         if (!inputValidation!!.isInputEditTextFilled(editTextTime, textInputLayoutTime, getString(R.string.error_message_time))){
             return
         }
-
-        val reservation = Reservation(
-            userEmail = userEmail,
-            complexName = complexName,
-            date = editTextDate.text.toString(),
-            time = editTextTime.text.toString()
-        )
-        val rta = databaseHelper.addReservation(reservation)
-        if (rta == -1) {
+        if (databaseHelper!!.checkReservations(complexName, editTextDate.text.toString(), editTextTime.text.toString())){
             AlertDialog.Builder(this).apply {
-                setTitle(R.string.save)
-                setMessage(R.string.error_database)
+                setTitle(R.string.reservar)
+                setMessage(R.string.error_reservation_message)
                 setIcon(R.drawable.icons_eliminar_48)
                 setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
                     dialog.dismiss()
                     emptyInputEditText()
                 })
             }.show()
-        } else {
-            AlertDialog.Builder(this).apply {
-                setTitle(R.string.save)
-                setMessage(R.string.success_message_save_reservation)
-                setIcon(R.drawable.ball)
-                setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
-                    dialog.dismiss()
-                    emptyInputEditText()
-                })
-            }.show()
 
-            generateNotification()
+        } else {
+            val reservation = Reservation(
+                userEmail = userEmail,
+                complexName = complexName,
+                date = editTextDate.text.toString(),
+                time = editTextTime.text.toString()
+            )
+            val rta = databaseHelper.addReservation(reservation)
+            if (rta == -1) {
+                AlertDialog.Builder(this).apply {
+                    setTitle(R.string.save)
+                    setMessage(R.string.error_database)
+                    setIcon(R.drawable.icons_eliminar_48)
+                    setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
+                        dialog.dismiss()
+                        emptyInputEditText()
+                    })
+                }.show()
+            } else {
+                AlertDialog.Builder(this).apply {
+                    setTitle(R.string.save)
+                    setMessage(R.string.success_message_save_reservation)
+                    setIcon(R.drawable.ball)
+                    setPositiveButton("Ok", DialogInterface.OnClickListener{ dialog, _ ->
+                        dialog.dismiss()
+                        emptyInputEditText()
+                    })
+                }.show()
+
+                generateNotification()
+            }
+
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

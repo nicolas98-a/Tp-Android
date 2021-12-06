@@ -39,6 +39,8 @@ class MenuActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMenu.toolbar)
 
+        databaseHelper = DatabaseHelper(this)
+        
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_menu)
@@ -54,13 +56,15 @@ class MenuActivity : AppCompatActivity() {
 
         val headerView = navView.getHeaderView(0)
 
-        val user_name = headerView.findViewById<TextView>(R.id.user_name)
-        val nameFromPrefs = UserRolApplication.prefs.getUserName()
-        user_name.text = nameFromPrefs;
-
         val user_email = headerView.findViewById<TextView>(R.id.user_email)
         val emailFromPrefs = UserRolApplication.prefs.getUserEmail()
         user_email.text = emailFromPrefs
+
+        val user_name = headerView.findViewById<TextView>(R.id.user_name)
+        val nameFromDb = databaseHelper.getUserName(emailFromPrefs)
+        UserRolApplication.prefs.saveUserName(nameFromDb)
+        val nameFromPrefs = UserRolApplication.prefs.getUserName()
+        user_name.text = nameFromPrefs;
 
         val exitItem = navView.menu.findItem(R.id.logOut)
         exitItem.setOnMenuItemClickListener {

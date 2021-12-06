@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.unaj.loginsqlite.databinding.FragmentGalleryBinding
 import com.unaj.loginsqlite.helpers.UserRolApplication
 import com.unaj.loginsqlite.UpdateUserActivity
+import com.unaj.loginsqlite.sql.DatabaseHelper
 
 class GalleryFragment : Fragment() {
 
@@ -23,6 +24,9 @@ class GalleryFragment : Fragment() {
     private var _binding: FragmentGalleryBinding? = null
 
     private val binding get() = _binding!!
+
+    private lateinit var emailFromPrefs: String
+    private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,14 +39,15 @@ class GalleryFragment : Fragment() {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        databaseHelper = DatabaseHelper(this.requireContext())
+
+        val user_email = binding.userEmail
+        emailFromPrefs = UserRolApplication.prefs.getUserEmail()
+        user_email.text = emailFromPrefs
+
         val user_name = binding.userName
         val nameFromPrefs = UserRolApplication.prefs.getUserName()
         user_name.text = nameFromPrefs;
-
-        val user_email = binding.userEmail
-        val emailFromPrefs = UserRolApplication.prefs.getUserEmail()
-        user_email.text = emailFromPrefs
-
 
         binding.button.setOnClickListener {requestPermission()}
         return root
@@ -55,7 +60,7 @@ class GalleryFragment : Fragment() {
 
     private fun startUpdateUser() {
         val updateUser = Intent(activity, UpdateUserActivity::class.java)
-
+        updateUser.putExtra("userEmail", emailFromPrefs)
         startActivity(updateUser)
     }
 

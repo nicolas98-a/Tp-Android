@@ -40,6 +40,7 @@
     <string name="error_database">Error writing to database</string>
     <string name="success_message_save_reservation">Your reservation has been registered</string>
     <string name="ok">Ok</string>
+    <string name="error_reservation_message">There is no availability at that time and / or day. Please choose another</string>
 
     <string name="request_map_permission">To activate the location go to setting and activate the permissions</string>
     <string name="title_activity_menu">MenuActivity</string>
@@ -68,8 +69,8 @@
     <string name="cancha_1_futbol_5">Pitch 1 - Soccer 5</string>
     <string name="date_reservation">When do you want to make a reservation?</string>
     <string name="time_reservation">What time?</string>
-    <string name="reservar">Reservoir</string>
-    <string name="map">Map</string>
+    <string name="reservar"><font fgcolor="#FF000000">Reservoir</font></string>
+    <string name="map"><font fgcolor="#FF000000">Map</font></string>
     <string name="iluminacion">Illumination</string>
     <string name="techo">Tech</string>
     <string name="sintetico">Synthetic</string>

@@ -140,6 +140,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         values.put(COLUMN_USER_NAME, user.name)
         values.put(COLUMN_USER_EMAIL, user.email)
         values.put(COLUMN_USER_PASSWORD, user.password)
+        values.put(COLUMN_USER_ROL, user.rol)
 
         // actualizar fila
         db.update(TABLE_USER, values, "$COLUMN_USER_ID = ?",
@@ -244,6 +245,58 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
            return cursor.getString(cursor.getColumnIndex(COLUMN_USER_ROL)).toInt()
         }
         return -1
+    }
+
+    @SuppressLint("Range")
+    fun getUserId(email: String): Int{
+        val columns = arrayOf(COLUMN_USER_ID)
+        val db = this.readableDatabase
+
+        // criterio de seleccion
+        val selection = "$COLUMN_USER_EMAIL = ?"
+
+        // argumento de seleccion
+        val selectionArgs = arrayOf(email)
+
+        // query: SELECT user_id FROM user WHERE user_email = 'ejemplo@mail.com';
+        val cursor = db.query(TABLE_USER,
+            columns,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null)
+
+        if (cursor.moveToFirst()){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)).toInt()
+        }
+        return -1
+    }
+
+    @SuppressLint("Range")
+    fun getUserName(email: String): String{
+        val columns = arrayOf(COLUMN_USER_NAME)
+        val db = this.readableDatabase
+
+        // criterio de seleccion
+        val selection = "$COLUMN_USER_EMAIL = ?"
+
+        // argumento de seleccion
+        val selectionArgs = arrayOf(email)
+
+        // query: SELECT user_id FROM user WHERE user_email = 'ejemplo@mail.com';
+        val cursor = db.query(TABLE_USER,
+            columns,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null)
+
+        if (cursor.moveToFirst()){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_USER_NAME))
+        }
+        return " "
     }
 
     // Agregar un complejo
@@ -542,6 +595,39 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             arrayOf(reservation.id.toString()))
 
         db.close()
+    }
+
+    // Chequeo si existe una reserva
+    fun checkReservations(complexName: String, date: String, time: String): Boolean {
+
+        val columns = arrayOf(COLUMN_RESERVATION_ID)
+
+        val db = this.readableDatabase
+
+        val selection = "$COLUMN_RESERVATION_COMPLEX_NAME = ? AND $COLUMN_RESERVATION_DATE = ? AND $COLUMN_RESERVATION_TIME = ?"
+
+        val selectionArgs = arrayOf(complexName, date, time)
+
+        // query SELECT reservation_id FROM reservation WHERE complexName = 'ejemplo@mail.com' AND date = '4/12/2021' AND time = '16:30';
+
+        val cursor = db.query(TABLE_RESERVATION,
+            columns,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null)
+
+        val cursorCount = cursor.count
+        cursor.close()
+        db.close()
+
+        if (cursorCount > 0) {
+            return true
+        }
+
+        return false
+
     }
 
     companion object {
